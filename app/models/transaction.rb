@@ -12,4 +12,10 @@
 #
 
 class Transaction < ActiveRecord::Base
+  attr_accessible :date, :amount, :text
+
+  validates_presence_of :date, :amount
+  # how to check for float?
+  validates_numericality_of :amount
+
 end
