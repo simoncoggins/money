@@ -12,6 +12,8 @@
 #
 
 class Transaction < ActiveRecord::Base
+  has_many :tag_assignments
+  has_many :tags, :through => :tag_assignments
   attr_accessible :date, :amount, :text
 
   validates_presence_of :date, :amount

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  transaction_id: 1
+  tag_id: 1
+  source: 1
+
+two:
+  transaction_id: 1
+  tag_id: 1
+  source: 1
