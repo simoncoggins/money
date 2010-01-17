@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20100116225908
+#
+# Table name: tag_assignments
+#
+#  id             :integer         not null, primary key
+#  transaction_id :integer
+#  tag_id         :integer
+#  source         :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:

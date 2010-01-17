@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100112082256
+# Schema version: 20100116225908
 #
 # Table name: transactions
 #
@@ -12,7 +12,7 @@
 #
 
 class Transaction < ActiveRecord::Base
-  has_many :tag_assignments
+  has_many :tag_assignments, :dependent => :destroy
   has_many :tags, :through => :tag_assignments
   attr_accessible :date, :amount, :text
 

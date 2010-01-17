@@ -106,3 +106,20 @@ Migrating to CreateTagAssignments (20100116225908)
   [4;35;1mTagAssignment Create (0.6ms)[0m   [0mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-16 23:13:15', 1, '2010-01-16 23:13:15', 1, NULL)[0m
   [4;36;1mTransaction Load (0.8ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
   [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT * FROM "tags" [0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" LIMIT 1[0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 1)) [0m
+  [4;35;1mTagAssignment Load (0.4ms)[0m   [0mSELECT * FROM "tag_assignments" WHERE ("tag_assignments".transaction_id = 1) [0m
+  [4;36;1mTagAssignment Destroy (0.7ms)[0m   [0;1mDELETE FROM "tag_assignments" WHERE "id" = 1[0m
+  [4;35;1mTagAssignment Destroy (0.1ms)[0m   [0mDELETE FROM "tag_assignments" WHERE "id" = 2[0m
+  [4;36;1mTransaction Destroy (0.1ms)[0m   [0;1mDELETE FROM "transactions" WHERE "id" = 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "tag_assignments" WHERE ("tag_assignments".tag_id = 1) [0m
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 1)) [0m
+  [4;35;1mTagAssignment Load (0.2ms)[0m   [0mSELECT * FROM "tag_assignments" [0m
