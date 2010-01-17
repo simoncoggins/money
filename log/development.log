@@ -123,3 +123,147 @@ Migrating to CreateTagAssignments (20100116225908)
   [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "tag_assignments" WHERE ("tag_assignments".tag_id = 1) [0m
   [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 1)) [0m
   [4;35;1mTagAssignment Load (0.2ms)[0m   [0mSELECT * FROM "tag_assignments" [0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date") VALUES('2010-01-17 02:00:35', '2010-01-17 02:00:35', 100.0, 'fee', '2010-01-17')[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" [0m
+  [4;36;1mTag Create (0.4ms)[0m   [0;1mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('power', '2010-01-17 02:00:56', '2010-01-17 02:00:56')[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 2)) [0m
+  [4;35;1mTagAssignment Create (0.3ms)[0m   [0mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:01:47', 2, '2010-01-17 02:01:47', 2, 1)[0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT * FROM "tags" WHERE ("tags"."id" = 2) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 2)) [0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 2)) [0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 2) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Create (0.4ms)[0m   [0mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('food', '2010-01-17 02:03:17', '2010-01-17 02:03:17')[0m
+  [4;36;1mTagAssignment Create (0.5ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:03:17', 3, '2010-01-17 02:03:17', 2, 1)[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 2) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date") VALUES('2010-01-17 02:05:30', '2010-01-17 02:05:30', 5.99, 'cd', '2010-01-17')[0m
+  [4;35;1mTag Create (0.4ms)[0m   [0mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('fuel', '2010-01-17 02:06:14', '2010-01-17 02:06:14')[0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:06:14', 4, '2010-01-17 02:06:14', 3, 2)[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 3) [0m
+  [4;36;1mTag Load (38.1ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mTag Create (0.4ms)[0m   [0;1mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('car', '2010-01-17 02:07:08', '2010-01-17 02:07:08')[0m
+  [4;35;1mTagAssignment Create (0.2ms)[0m   [0mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:07:08', 5, '2010-01-17 02:07:08', 3, 3)[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 3) [0m
+  [4;35;1mTag Load (0.5ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTag Create (0.4ms)[0m   [0mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('rest', '2010-01-17 02:07:59', '2010-01-17 02:07:59')[0m
+  [4;36;1mTagAssignment Create (0.2ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:07:59', 6, '2010-01-17 02:07:59', 3, 1)[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 3) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTag Load (0.5ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 3)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTransactions (20100112082256)
+Migrating to CreateTags (20100116225528)
+Migrating to CreateTagAssignments (20100116225908)
+Migrating to AddTopTagToTransaction (20100117021322)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: no such table: transaction: ALTER TABLE "transaction" ADD "top_tag" integer[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTransactions (20100112082256)
+Migrating to CreateTags (20100116225528)
+Migrating to CreateTagAssignments (20100116225908)
+Migrating to AddTopTagToTransaction (20100117021322)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mALTER TABLE "transactions" ADD "top_tag" integer[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100117021322')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tag_assignments")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tags")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;36;1mTransaction Load (0.8ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;36;1mTransaction Load (0.8ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;36;1mTransaction Load (0.8ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" LIMIT 1[0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date", "top_tag") VALUES('2010-01-17 02:27:30', '2010-01-17 02:27:30', 99.0, 'text', '2010-01-17', NULL)[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 1) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:28:05', 1, '2010-01-17 02:28:05', 4, 1)[0m
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 4) [0m
+  [4;36;1mTag Load (0.2ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 4) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date", "top_tag") VALUES('2010-01-17 02:30:37', '2010-01-17 02:30:37', 99.0, 'text', '2010-01-17', NULL)[0m
+  [4;35;1mTag Load (0.2ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 1) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:30:52', 1, '2010-01-17 02:30:52', 5, 1)[0m
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 5) [0m
+  [4;36;1mTag Load (0.2ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTransaction Load (0.1ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 5) [0m
+  [4;36;1mTransaction Load (0.1ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 5) [0m
+  [4;35;1mTag Load (0.1ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mTransaction Load (0.4ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 5) [0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to AddTopTagToTransaction (20100117021322)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCREATE TEMPORARY TABLE "altered_transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "amount" float, "text" varchar(255), "created_at" datetime, "updated_at" datetime, "top_tag" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "transactions"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mCREATE TABLE "transactions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "date" date, "amount" float, "text" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("altered_transactions")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "altered_transactions"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mDELETE FROM schema_migrations WHERE version = '20100117021322'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tag_assignments")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("transactions")[0m
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date") VALUES('2010-01-17 02:33:45', '2010-01-17 02:33:45', 99.0, 'text', '2010-01-17')[0m
+  [4;35;1mTag Load (0.2ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 1) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:33:59', 1, '2010-01-17 02:33:59', 6, 1)[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 2) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:34:09', 2, '2010-01-17 02:34:09', 6, 1)[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 3) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:34:15', 3, '2010-01-17 02:34:15', 6, 2)[0m
+  [4;35;1mTag Load (0.5ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mTransaction Create (0.3ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "date") VALUES('2010-01-17 02:38:35', '2010-01-17 02:38:35', 99.0, 'text', '2010-01-17')[0m
+  [4;35;1mTag Load (0.2ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 1) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:38:39', 1, '2010-01-17 02:38:39', 7, 1)[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 3) [0m
+  [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:38:46', 3, '2010-01-17 02:38:46', 7, 2)[0m
+  [4;35;1mTag Load (0.5ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
