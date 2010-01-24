@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20100116225908
+# Schema version: 20100117080826
 #
 # Table name: transactions
 #
-#  id         :integer         not null, primary key
-#  date       :date
-#  amount     :float
-#  text       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  date         :date
+#  amount       :float
+#  text         :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  statement_id :integer
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

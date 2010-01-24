@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100116225908
+# Schema version: 20100117080826
 #
 # Table name: tag_assignments
 #

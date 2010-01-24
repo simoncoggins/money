@@ -1,0 +1,18 @@
+<h2>New transaction</h2>
+
+<%= error_messages_for :transaction %>
+
+<% form_tag :action => 'create' do %>
+  <p><label>Date:<br />
+  <%= date_select :transaction, :date, :order => [:day, :month, :year] %></label></p>
+
+  <p><label>Text:<br />
+  <%= text_field :transaction, :text %></label></p>
+
+  <p><label>Amount:<br />
+  <%= text_field :transaction, :amount %></label></p>
+
+  <p><%= submit_tag 'Create' %></p>
+<% end %>
+
+<%= link_to 'Back', transactions_path %>

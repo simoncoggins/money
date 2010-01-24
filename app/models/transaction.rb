@@ -1,14 +1,15 @@
 # == Schema Information
-# Schema version: 20100116225908
+# Schema version: 20100117080826
 #
 # Table name: transactions
 #
-#  id         :integer         not null, primary key
-#  date       :date
-#  amount     :float
-#  text       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  date         :date
+#  amount       :float
+#  text         :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  statement_id :integer
 #
 
 class Transaction < ActiveRecord::Base
@@ -19,7 +20,7 @@ class Transaction < ActiveRecord::Base
     :order => "source ASC, updated_at DESC"
   attr_accessible :date, :amount, :text
 
-  validates_presence_of :date, :amount, :statement_id
+  validates_presence_of :date, :text, :amount, :statement_id
   validates_numericality_of :amount
   validates_numericality_of :statement_id, :only_integer => true
 

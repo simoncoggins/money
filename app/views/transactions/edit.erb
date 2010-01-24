@@ -1,0 +1,21 @@
+<h2>Edit Transaction</h2>
+
+<% form_tag :action => 'update', :id => params[:id] do %>
+
+<%= error_messages_for :transaction %>
+
+  <p><label>Date:<br />
+  <%= date_select :transaction, :date %></label></p>
+
+  <p><label>Amount:<br />
+  <%= text_field :transaction, :amount %></label></p>
+
+  <p><label>Text:<br />
+  <%= text_field :transaction, :text %></label></p>
+
+  <p><%= submit_tag 'Save Changes' %></p>
+
+<% end %>
+
+<%= link_to 'Back', transactions_path %>
+
