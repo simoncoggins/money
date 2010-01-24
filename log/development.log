@@ -267,3 +267,131 @@ Migrating to AddTopTagToTransaction (20100117021322)
   [4;36;1mTagAssignment Create (0.3ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-17 02:38:46', 3, '2010-01-17 02:38:46', 7, 2)[0m
   [4;35;1mTag Load (0.5ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC[0m
   [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTransactions (20100112082256)
+Migrating to CreateTags (20100116225528)
+Migrating to CreateTagAssignments (20100116225908)
+Migrating to CreateStatements (20100117080826)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "statements" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100117080826')[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("statements")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tag_assignments")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tags")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("transactions")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateStatements (20100117080826)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mDROP TABLE "statements"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100117080826'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tag_assignments")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tags")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTransactions (20100112082256)
+Migrating to CreateTags (20100116225528)
+Migrating to CreateTagAssignments (20100116225908)
+Migrating to CreateStatements (20100117080826)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCREATE TABLE "statements" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mALTER TABLE "transactions" ADD "statement_id" integer[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100117080826')[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("statements")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tag_assignments")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tags")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("transactions")[0m
+  [4;36;1mStatement Create (0.3ms)[0m   [0;1mINSERT INTO "statements" ("name", "created_at", "updated_at") VALUES('December', '2010-01-17 08:21:09', '2010-01-17 08:21:09')[0m
+WARNING: Can't mass-assign these protected attributes: statement
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" WHERE ("transactions".statement_id = 1) [0m
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions".statement_id = 1) LIMIT 1[0m
+  [4;35;1mStatement Load (0.3ms)[0m   [0mSELECT * FROM "statements" WHERE ("statements"."id" = 1) [0m
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions".statement_id = 1) LIMIT 1[0m
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions".statement_id = 1) [0m
+  [4;36;1mStatement Create (0.3ms)[0m   [0;1mINSERT INTO "statements" ("name", "created_at", "updated_at") VALUES('ANZ', '2010-01-17 08:34:09', '2010-01-17 08:34:09')[0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions".statement_id = 2) [0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "statement_id", "date") VALUES('2010-01-17 08:35:21', '2010-01-17 08:35:21', 0.99, 'hi', 2, '2010-01-17')[0m
+  [4;35;1mStatement Load (0.7ms)[0m   [0mSELECT * FROM "statements" WHERE ("statements"."id" = 2) [0m
+  [4;36;1mTransaction Load (0.7ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" ORDER BY transactions.id DESC LIMIT 1[0m
+  [4;36;1mTransaction Load (0.3ms)[0m   [0;1mSELECT * FROM "transactions" ORDER BY transactions.id DESC LIMIT 1[0m
+WARNING: Can't mass-assign these protected attributes: statement
+WARNING: Can't mass-assign these protected attributes: statement
+WARNING: Can't mass-assign these protected attributes: statement_id
+  [4;36;1mTransaction Load (1.2ms)[0m   [0;1mSELECT * FROM "transactions" ORDER BY transactions.id DESC LIMIT 1[0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 7) [0m
+  [4;36;1mTag Load (10.9ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 8)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 8)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mStatement Create (0.4ms)[0m   [0;1mINSERT INTO "statements" ("name", "created_at", "updated_at") VALUES('mine', '2010-01-24 08:53:14', '2010-01-24 08:53:14')[0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions".statement_id = 3) [0m
+  [4;36;1mTransaction Create (0.4ms)[0m   [0;1mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "statement_id", "date") VALUES('2010-01-24 08:54:05', '2010-01-24 08:54:05', 99.0, 'text', 3, '2010-01-24')[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 9) [0m
+  [4;36;1mStatement Load (0.4ms)[0m   [0;1mSELECT * FROM "statements" WHERE ("statements"."id" = 3) [0m
+  [4;35;1mTag Create (0.3ms)[0m   [0mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('my tag', '2010-01-24 08:58:12', '2010-01-24 08:58:12')[0m
+  [4;36;1mTagAssignment Load (0.3ms)[0m   [0;1mSELECT * FROM "tag_assignments" WHERE ("tag_assignments".transaction_id = 9) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 7)) ORDER BY source ASC, updated_at DESC[0m
+WARNING: Can't mass-assign these protected attributes: type
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTagAssignment Create (0.4ms)[0m   [0mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-24 09:01:11', 7, '2010-01-24 09:01:11', 9, 2)[0m
+  [4;36;1mTag Load (0.5ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mTransaction Load (0.3ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 9) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.3ms)[0m   [0mSELECT * FROM "tags" WHERE ("tags"."id" = 7) [0m
+  [4;36;1mTransaction Load (0.5ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 7)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mStatement Load (0.2ms)[0m   [0;1mSELECT * FROM "statements" WHERE ("statements"."id" = 3) [0m
+  [4;35;1mTag Create (0.6ms)[0m   [0mINSERT INTO "tags" ("name", "created_at", "updated_at") VALUES('tag2', '2010-01-24 09:09:41', '2010-01-24 09:09:41')[0m
+  [4;36;1mTagAssignment Create (0.6ms)[0m   [0;1mINSERT INTO "tag_assignments" ("created_at", "tag_id", "updated_at", "transaction_id", "source") VALUES('2010-01-24 09:10:29', 8, '2010-01-24 09:10:29', 9, 3)[0m
+  [4;35;1mTransaction Load (0.4ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 9) [0m
+  [4;36;1mTag Load (0.5ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTag Load (0.4ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m

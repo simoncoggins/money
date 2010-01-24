@@ -1,2 +1,39 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+User  >  Account  >  Statement  >  Transaction  <  Tag Assignment  <  Tag
+> has_many     > has_many    > has_many     > has_many tags through
+< belongs_to   < belongs_to  < belongs_to   < has_many transactions through
+
+          name       name          date		     source	    name
+				   amount	     updated_at
+				   text
+
+
+st = Statement.create(:name => 'Name')
+st.transactions
+=> []
+st.transactions.create(:date=>Date.today, :amount=>99, :text='text')
+tr.statement
+=> returns statement
+tag = Tag.create(:name=>'my tag')
+tr.tag_assignments
+=> []
+tr.tags
+=> []
+tr.tag
+=> nil
+tag.transactions
+=> []
+tr.tag_assignments.create(:source=>2, :tag=>tag)
+tr.reload
+tr.tags
+=> returns tag
+tr.tag
+=> returns tag
+tag.reload
+tag.transactions
+=> returns transaction
+tag.transactions.find(:first).statement
+=> returns statement
+

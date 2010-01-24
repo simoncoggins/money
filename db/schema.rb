@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100116225908) do
+ActiveRecord::Schema.define(:version => 20100117080826) do
+
+  create_table "statements", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tag_assignments", :force => true do |t|
     t.integer  "transaction_id"
@@ -31,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20100116225908) do
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "statement_id"
   end
 
 end
