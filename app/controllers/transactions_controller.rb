@@ -38,4 +38,10 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def destroy
+    @transaction = Transaction.find(params[:id])
+    @transaction.destroy
+    flash[:notice] = 'Transaction was deleted'
+    redirect_to transactions_url
+  end
 end

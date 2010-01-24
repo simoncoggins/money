@@ -2108,3 +2108,292 @@ Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:29:02) [
 Rendering template within layouts/application
 Rendering transactions/index
 Completed in 40ms (View: 35, DB: 1) | 200 OK [http://localhost/transactions]
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+
+
+Processing TransactionsController#edit (for 127.0.0.1 at 2010-01-25 12:39:57) [GET]
+  Parameters: {"id"=>"9"}
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 9) [0m
+Rendering template within layouts/application
+Rendering transactions/edit
+
+ActionView::TemplateError (Missing template transactions/_form.erb in view path app/views) on line #5 of app/views/transactions/edit.html.erb:
+2: 
+3: <% form_tag :action => 'update', :id => params[:id] do %>
+4: 
+5: <%= render :partial => 'form' %>
+6: 
+7:   <p><%= submit_tag 'Save Changes' %></p>
+8: 
+
+    app/views/transactions/edit.html.erb:5
+    app/views/transactions/edit.html.erb:3
+
+Rendered rescues/_trace (37.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#edit (for 127.0.0.1 at 2010-01-25 12:40:18) [GET]
+  Parameters: {"id"=>"9"}
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 9) [0m
+Rendering template within layouts/application
+Rendering transactions/edit
+Rendered transactions/_form (5.9ms)
+Completed in 16ms (View: 11, DB: 0) | 200 OK [http://localhost/transaction/edit/9]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:40:53) [GET]
+  [4;36;1mTransaction Load (1.1ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 105ms (View: 98, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-01-25 12:40:54) [GET]
+Rendering template within layouts/application
+Rendering transactions/new
+Rendered transactions/_form (5.3ms)
+Completed in 17ms (View: 12, DB: 0) | 200 OK [http://localhost/transactions/new]
+
+
+Processing TransactionsController#create (for 127.0.0.1 at 2010-01-25 12:40:59) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "transaction"=>{"date(1i)"=>"2010", "date(2i)"=>"1", "date(3i)"=>"24", "text"=>"sfd", "amount"=>"345"}}
+  [4;35;1mTransaction Create (0.3ms)[0m   [0mINSERT INTO "transactions" ("created_at", "updated_at", "amount", "text", "statement_id", "date") VALUES('2010-01-24 23:40:59', '2010-01-24 23:40:59', 345.0, 'sfd', 1, '2010-01-24')[0m
+Redirected to http://localhost:3000/transactions/new
+Completed in 10ms (DB: 0) | 302 Found [http://localhost/transactions/create]
+
+
+Processing TransactionsController#new (for 127.0.0.1 at 2010-01-25 12:40:59) [GET]
+Rendering template within layouts/application
+Rendering transactions/new
+Rendered transactions/_form (5.3ms)
+Completed in 12ms (View: 7, DB: 0) | 200 OK [http://localhost/transactions/new]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:41:01) [GET]
+  [4;36;1mTransaction Load (1.3ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 102ms (View: 97, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#edit (for 127.0.0.1 at 2010-01-25 12:41:03) [GET]
+  Parameters: {"id"=>"16"}
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/edit
+Rendered transactions/_form (6.2ms)
+Completed in 14ms (View: 8, DB: 0) | 200 OK [http://localhost/transaction/edit/16]
+
+
+Processing TransactionsController#update (for 127.0.0.1 at 2010-01-25 12:41:07) [POST]
+  Parameters: {"commit"=>"Save Changes", "authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16", "transaction"=>{"date(1i)"=>"2010", "date(2i)"=>"1", "date(3i)"=>"24", "text"=>"", "amount"=>"345.0"}}
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/edit
+Rendered transactions/_form (6.3ms)
+Completed in 16ms (View: 8, DB: 0) | 200 OK [http://localhost/transactions/update/16]
+
+
+Processing TransactionsController#update (for 127.0.0.1 at 2010-01-25 12:41:11) [POST]
+  Parameters: {"commit"=>"Save Changes", "authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16", "transaction"=>{"date(1i)"=>"2010", "date(2i)"=>"1", "date(3i)"=>"24", "text"=>"", "amount"=>""}}
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/edit
+Rendered transactions/_form (8.4ms)
+Completed in 18ms (View: 10, DB: 0) | 200 OK [http://localhost/transactions/update/16]
+
+
+Processing TransactionsController#update (for 127.0.0.1 at 2010-01-25 12:41:15) [POST]
+  Parameters: {"commit"=>"Save Changes", "authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16", "transaction"=>{"date(1i)"=>"2010", "date(2i)"=>"1", "date(3i)"=>"24", "text"=>"a", "amount"=>"345"}}
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+  [4;35;1mTransaction Update (0.2ms)[0m   [0mUPDATE "transactions" SET "updated_at" = '2010-01-24 23:41:15', "text" = 'a' WHERE "id" = 16[0m
+Redirected to http://localhost:3000/transactions/show/16
+Completed in 9ms (DB: 0) | 302 Found [http://localhost/transactions/update/16]
+
+
+Processing TransactionsController#show (for 127.0.0.1 at 2010-01-25 12:41:15) [GET]
+  Parameters: {"id"=>"16"}
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/show
+Completed in 8ms (View: 2, DB: 0) | 200 OK [http://localhost/transactions/show/16]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:41:17) [GET]
+  [4;35;1mTransaction Load (1.2ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 45ms (View: 39, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#show (for 127.0.0.1 at 2010-01-25 12:41:21) [DELETE]
+  Parameters: {"authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16"}
+  [4;36;1mTransaction Load (0.2ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/show
+Completed in 9ms (View: 2, DB: 0) | 200 OK [http://localhost/transactions/show/16]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:41:23) [GET]
+  [4;35;1mTransaction Load (1.2ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 44ms (View: 37, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing ApplicationController#show (for 127.0.0.1 at 2010-01-25 12:43:25) [DELETE]
+  Parameters: {"authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16"}
+
+SyntaxError (/Users/simon/code/money/app/controllers/transactions_controller.rb:46: syntax error, unexpected $end, expecting kEND):
+  
+
+Rendered rescues/_trace (86.8ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#show (for 127.0.0.1 at 2010-01-25 12:43:39) [DELETE]
+  Parameters: {"authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16"}
+  [4;36;1mTransaction Load (0.3ms)[0m   [0;1mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+Rendering template within layouts/application
+Rendering transactions/show
+Completed in 9ms (View: 2, DB: 0) | 200 OK [http://localhost/transactions/show/16]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:43:44) [GET]
+  [4;35;1mTransaction Load (1.2ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 45ms (View: 39, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TagsController#index (for 127.0.0.1 at 2010-01-25 12:45:39) [GET]
+  [4;36;1mTag Load (0.7ms)[0m   [0;1mSELECT * FROM "tags" [0m
+Rendering template within layouts/tags
+Rendering tags/index
+Completed in 23ms (View: 19, DB: 1) | 200 OK [http://localhost/tags]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:46:27) [GET]
+  [4;35;1mTransaction Load (1.1ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+
+ActionView::TemplateError (undefined local variable or method `destroy_transaction' for #<ActionView::Base:0x10401ea28>) on line #16 of app/views/transactions/index.html.erb:
+13:     <td><%= transaction.text %></td>
+14:     <td><%= link_to 'Show', transaction %></td>
+15:     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+16:     <td><%= link_to 'Destroy', destroy_transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+17:   </tr>
+18: <% end %>
+19: </table>
+
+    app/views/transactions/index.html.erb:16
+    app/views/transactions/index.html.erb:9:in `each'
+    app/views/transactions/index.html.erb:9
+
+Rendered rescues/_trace (33.3ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:47:58) [GET]
+  [4;36;1mTransaction Load (1.3ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+
+ActionView::TemplateError (undefined local variable or method `destroy_transaction' for #<ActionView::Base:0x104117c18>) on line #16 of app/views/transactions/index.html.erb:
+13:     <td><%= transaction.text %></td>
+14:     <td><%= link_to 'Show', transaction %></td>
+15:     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+16:     <td><%= link_to 'Destroy', destroy_transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+17:   </tr>
+18: <% end %>
+19: </table>
+
+    app/views/transactions/index.html.erb:16
+    app/views/transactions/index.html.erb:9:in `each'
+    app/views/transactions/index.html.erb:9
+
+Rendered rescues/_trace (34.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:48:17) [GET]
+  [4;35;1mTransaction Load (1.2ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+
+ActionView::TemplateError (undefined method `destroy_transaction_path' for #<ActionView::Base:0x104343230>) on line #16 of app/views/transactions/index.html.erb:
+13:     <td><%= transaction.text %></td>
+14:     <td><%= link_to 'Show', transaction %></td>
+15:     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+16:     <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
+17:   </tr>
+18: <% end %>
+19: </table>
+
+    app/views/transactions/index.html.erb:16
+    app/views/transactions/index.html.erb:9:in `each'
+    app/views/transactions/index.html.erb:9
+
+Rendered rescues/_trace (95.2ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:48:41) [GET]
+  [4;36;1mTransaction Load (1.2ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 44ms (View: 38, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#destroy (for 127.0.0.1 at 2010-01-25 12:48:45) [DELETE]
+  Parameters: {"authenticity_token"=>"t5cpusejO6cT3AZMjD/drHNKtcCQwo+HznLAWisywmc=", "id"=>"16"}
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 16) [0m
+  [4;36;1mTagAssignment Load (0.1ms)[0m   [0;1mSELECT * FROM "tag_assignments" WHERE ("tag_assignments".transaction_id = 16) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mTransaction Destroy (0.2ms)[0m   [0mDELETE FROM "transactions" WHERE "id" = 16[0m
+Redirected to http://localhost:3000/transactions
+Completed in 12ms (DB: 0) | 302 Found [http://localhost/transaction/destroy/16]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:48:45) [GET]
+  [4;36;1mTransaction Load (1.1ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 101ms (View: 96, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#show (for 127.0.0.1 at 2010-01-25 12:48:49) [GET]
+  Parameters: {"id"=>"15"}
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT * FROM "transactions" WHERE ("transactions"."id" = 15) [0m
+Rendering template within layouts/application
+Rendering transactions/show
+Completed in 8ms (View: 2, DB: 0) | 200 OK [http://localhost/transactions/show/15]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:48:51) [GET]
+  [4;36;1mTransaction Load (1.1ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 42ms (View: 36, DB: 1) | 200 OK [http://localhost/transactions]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-01-25 12:49:33) [GET]
+  [4;35;1mTransaction Load (1.1ms)[0m   [0mSELECT * FROM "transactions" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+Completed in 40ms (View: 34, DB: 1) | 200 OK [http://localhost/transactions]

@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 map.transactions     'transactions',          :controller => 'transactions'
 map.new_transaction  'transactions/new',      :controller => 'transactions', :action => 'new'
 map.edit_transaction 'transaction/edit/:id',  :controller => 'transactions', :action => 'edit'
+map.destroy_transaction 'transaction/destroy/:id', :controller => 'transactions', :action => 'destroy'
 map.transaction      'transactions/show/:id', :controller => 'transactions', :action => 'show'
 
   # Sample of regular route:
