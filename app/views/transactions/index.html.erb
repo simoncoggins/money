@@ -1,16 +1,53 @@
 <h1>Listing transactions</h1>
 
+<% @tags.each do |tag| %>
+
+
+<% if tag.transactions.any? %>
+
+<h2><%=tag.name%></h2>
+
 <table>
   <tr>
     <th>Date</th>
     <th>Amount</th>
     <th>Text</th>
+    <th>Tag</th>
   </tr>
-<% @transactions.each do |transaction| %>
+<% tag.transactions.each do |transaction|
+# use partials here
+if transaction.tag == tag.name %>
   <tr>
     <td><%= transaction.date %></td>
     <td><%= transaction.amount %></td>
     <td><%= transaction.text %></td>
+    <td><%= transaction.tag %></td>
+    <td><%= link_to 'Show', transaction %></td>
+    <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+    <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end 
+end %>
+</table>
+<% end %>
+
+<% end %>
+
+<h2>Untagged</h2>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Text</th>
+    <th>Tag</th>
+  </tr>
+<% Transaction.untagged.each do |transaction| %>
+  <tr>
+    <td><%= transaction.date %></td>
+    <td><%= transaction.amount %></td>
+    <td><%= transaction.text %></td>
+    <td><%= transaction.tag %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
     <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
@@ -18,7 +55,6 @@
 <% end %>
 </table>
 
-<br />
-
+<p>
 <%= link_to 'New transaction', new_transaction_path %>
-
+</p>

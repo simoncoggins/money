@@ -1,0 +1,9 @@
+  <tr>
+  <td><%= transaction.date %></td>
+  <td><%= transaction.amount %></td>
+  <td><%= transaction.text %></td>
+  <td><%= transaction.tag %></td>
+  <td><%= link_to 'Show', transaction %></td>
+  <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+  <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>

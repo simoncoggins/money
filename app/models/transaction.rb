@@ -28,7 +28,15 @@ class Transaction < ActiveRecord::Base
   # extra field in transaction updated by
   # after_save method in tag_assignment
   def tag
-    self.tags.find(:first)
+    self.tags.find(:first).name unless self.tags.empty?
+  end
+
+  def self.untagged
+    self.all.reject{|x| x.tags.any? }
+  end
+
+  def tag_id
+    self.tags.find(:first).id unless self.tags.empty?
   end
 
 end

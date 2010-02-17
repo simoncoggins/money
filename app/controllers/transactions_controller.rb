@@ -1,7 +1,8 @@
 class TransactionsController < ApplicationController
 
   def index
-    @transactions = Transaction.all
+    @untagged = Transaction.untagged
+    @tags = Tag.all
   end
 
   def show
