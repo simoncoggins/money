@@ -6905,3 +6905,154 @@ Rendering transactions/index
   [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 14)) [0m
   [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 15)) [0m
 Completed in 76ms (View: 55, DB: 6) | 200 OK [http://localhost/transactions]
+  [4;36;1mSQL (0.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+
+
+Processing UploadController#index (for 127.0.0.1 at 2010-02-24 15:28:25) [GET]
+Rendering app/views/upload/uploadfile.html.erb
+Completed in 48ms (View: 46, DB: 0) | 200 OK [http://localhost/upload]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:28:41) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-icbw1-0>}, "authenticity_token"=>"kadTunJRNOf6w+mQhYuLpS7mp1gzJUFzIESmyvJZxbk="}
+
+NoMethodError (undefined method `read' for nil:NilClass):
+  app/models/upload.rb:4:in `import'
+  app/controllers/upload_controller.rb:6:in `uploadFile'
+
+Rendered rescues/_trace (76.1ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:31:27) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-1gzhss1-0>}, "authenticity_token"=>"kadTunJRNOf6w+mQhYuLpS7mp1gzJUFzIESmyvJZxbk="}
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:32:24) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-1qxy74c-0>}, "authenticity_token"=>"kadTunJRNOf6w+mQhYuLpS7mp1gzJUFzIESmyvJZxbk="}
+Completed in 3ms (View: 0, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:32:52) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-4pi2e8-0>}, "authenticity_token"=>"kadTunJRNOf6w+mQhYuLpS7mp1gzJUFzIESmyvJZxbk="}
+Completed in 3ms (View: 0, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing UploadController#index (for 127.0.0.1 at 2010-02-24 15:53:46) [GET]
+Rendering app/views/upload/uploadfile.html.erb
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://localhost/upload]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:53:51) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-146t7ha-0>}, "authenticity_token"=>"c08p4wM4Jt8tTT0+EIKFIheplv+iQFPtVM1riJPL17I="}
+Completed in 3ms (View: 0, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:54:16) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-13pj5he-0>}, "authenticity_token"=>"c08p4wM4Jt8tTT0+EIKFIheplv+iQFPtVM1riJPL17I="}
+Completed in 3ms (View: 0, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing UploadController#uploadFile (for 127.0.0.1 at 2010-02-24 15:58:03) [POST]
+  Parameters: {"commit"=>"Upload", "upload"=>{"upload"=>#<File:/var/folders/zW/zWOyZAYTG1izUdHjLdUX5++++TM/-Tmp-/RackMultipart20100224-316-139jki2-0>}, "authenticity_token"=>"c08p4wM4Jt8tTT0+EIKFIheplv+iQFPtVM1riJPL17I="}
+Completed in 3ms (View: 0, DB: 0) | 200 OK [http://localhost/upload/uploadFile]
+
+
+Processing TransactionsController#index (for 127.0.0.1 at 2010-02-24 16:17:31) [GET]
+  [4;36;1mTransaction Load (17.0ms)[0m   [0;1mSELECT * FROM "transactions" [0m
+  [4;35;1mSQL (0.5ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 8)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 10)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 11)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 12)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 13)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 14)) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 15)) [0m
+  [4;36;1mTag Load (0.4ms)[0m   [0;1mSELECT * FROM "tags" [0m
+Rendering template within layouts/application
+Rendering transactions/index
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 1)) [0m
+  [4;36;1mTransaction Load (0.6ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 1)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) [0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) [0m
+  [4;36;1mTag Load (0.2ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) [0m
+  [4;36;1mTag Load (0.3ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 2)) [0m
+  [4;36;1mTransaction Load (0.5ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 2)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) [0m
+  [4;36;1mTag Load (0.2ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 3)) [0m
+  [4;36;1mTransaction Load (0.3ms)[0m   [0;1mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 3)) ORDER BY source ASC, updated_at DESC[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 4)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 5)) [0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 6)) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 7)) [0m
+  [4;35;1mTransaction Load (0.2ms)[0m   [0mSELECT "transactions".* FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 7)) ORDER BY source ASC, updated_at DESC[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) [0m
+  [4;35;1mTag Load (0.2ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT "tags".* FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) ORDER BY source ASC, updated_at DESC LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM "transactions" INNER JOIN "tag_assignments" ON "transactions".id = "tag_assignments".transaction_id WHERE (("tag_assignments".tag_id = 8)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "transactions" [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 2)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 4)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 5)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 6)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 7)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 8)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 9)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 10)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 11)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 12)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 13)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 14)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 15)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 8)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 10)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 11)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 12)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 13)) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 14)) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM "tags" INNER JOIN "tag_assignments" ON "tags".id = "tag_assignments".tag_id WHERE (("tag_assignments".transaction_id = 15)) [0m
+Completed in 190ms (View: 98, DB: 24) | 200 OK [http://localhost/transactions]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-02-24 16:21:55) [GET]
+
+ActionController::RoutingError (No route matches "/statements/" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
