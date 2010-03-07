@@ -26,7 +26,7 @@ class TransactionsController < ApplicationController
 
   def edit
     @transaction = Transaction.find(params[:id])
-    @transaction[:tag_id] = @transaction.tag
+    @transaction[:tag_id] = Tag.find_by_name(@transaction.tag).id
   end
 
   def update

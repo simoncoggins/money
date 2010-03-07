@@ -1,5 +1,7 @@
 <h1>Listing transactions</h1>
 
+<p>Still showing wrong dropdown (fuel) when tag set to food (id=53). And showing multiple items with same id=53 tagged as fuel. Need an iscurrtag?(tagname) method on transaction</p>
+
 <% @tags.each do |tag| %>
 
 
@@ -20,7 +22,7 @@ if transaction.tag == tag.name %>
   <tr>
     <td><%= transaction.date %></td>
     <td><%= transaction.amount %></td>
-    <td><%= transaction.text %></td>
+    <td><%= transaction.text.split.map{|w| w.capitalize}.join ' ' %></td>
     <td><%= transaction.tag %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
@@ -46,7 +48,7 @@ end %>
   <tr>
     <td><%= transaction.date %></td>
     <td><%= transaction.amount %></td>
-    <td><%= transaction.text %></td>
+    <td><%= transaction.text.split.map {|w| w.capitalize}.join ' ' %></td>
     <td><%= transaction.tag %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>

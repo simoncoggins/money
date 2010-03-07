@@ -49,5 +49,7 @@ class Transaction < ActiveRecord::Base
   true
   end
 
-
+  def iscurrtag?(tagname)
+    self.tag == tagname
+  end
 end
