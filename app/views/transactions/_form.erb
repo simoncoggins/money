@@ -10,5 +10,8 @@
   <p><label>Text:<br />
   <%= text_field :transaction, :text %></label></p>
 
+  <p><label>Statement ID:<br />
+  <%= text_field :transaction, :statement_id %></label></p>
+
   <p><label>Tag:<br />
-  <%= collection_select :tag_assignment, :tag_id, Tag.all, :id, :name, {:prompt => true} %>
+  <%= collection_select :transaction, :tag_id, Tag.all, :id, :name, {:prompt => true} %>

@@ -3,6 +3,11 @@
   <title>My application</title>
 </head>
 <body>
+<p>
+<%= link_to "Transactions", :controller=> 'transactions' %> |
+<%= link_to "Tags", :controller => 'tags' %> | 
+<%= link_to "Upload Statement", :controller=>'upload' %>
+</p>
 <p style="color: green"><%= flash[:notice] %></p>
 <%= yield %>
 </body>

@@ -18,7 +18,7 @@ class Transaction < ActiveRecord::Base
     :order => "source ASC, updated_at DESC"
   has_many :tags, :through => :tag_assignments, 
     :order => "source ASC, updated_at DESC"
-  attr_accessible :date, :amount, :text
+  attr_accessible :date, :amount, :text, :statement_id
 
   validates_presence_of :date, :text, :amount, :statement_id
   validates_numericality_of :amount
@@ -28,7 +28,8 @@ class Transaction < ActiveRecord::Base
   # extra field in transaction updated by
   # after_save method in tag_assignment
   def tag
-    self.tags.find(:first).name unless self.tags.empty?
+    self.tag_assignments.find(:first).tag.name unless 
+      self.tag_assignments.empty?
   end
 
   def self.untagged
@@ -38,5 +39,15 @@ class Transaction < ActiveRecord::Base
   def tag_id
     self.tags.find(:first).id unless self.tags.empty?
   end
+
+  def createusertag(tagid)
+    self.tag_assignments.create(:tag_id => tagid, :source => 1) unless
+      # don't add an assignment if tag hasn't changed
+      # this is a bit naive to assignments other than user
+      # and could be handled better 
+      self.tag == Tag.find(tagid).name
+  true
+  end
+
 
 end
