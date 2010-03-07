@@ -10,11 +10,7 @@
   <p><label>Text:<br />
   <%= text_field :transaction, :text %></label></p>
 
-  <p><label>Current tag id (remove when bug fixed): <br />
-  <%= text_field :transaction, :tag_id %></label></p>
-
-  <p><label>Statement ID:<br />
-  <%= text_field :transaction, :statement_id %></label></p>
+  <%= hidden_field :transaction, :statement_id %>
 
   <p><label>Tag:<br />
   <%= collection_select :transaction, :tag_id, Tag.all, :id, :name, {:prompt => true} %>

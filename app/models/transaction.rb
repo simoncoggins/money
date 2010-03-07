@@ -36,12 +36,24 @@ class Transaction < ActiveRecord::Base
     self.all.reject{|x| x.tags.any? }
   end
 
+  # potential replacement function for getting list of tags used
+  # but needs to only include current assigned tag
+  # currently returns list of all tags used in tag assignments
+  def self.assigned_tags
+    alltags = []
+    self.all.each do |tr|
+      alltags.concat(tr.tags)
+    end
+    alltags.uniq!
+  end
+  # would be better if tag method returned object, and references were
+  # updated so obj.tag => obj.tag.name and obj.tag_id => obj.tag.id
   def tag_id
-    self.tags.find(:first).id unless self.tags.empty?
+    self.tag_assignments.find(:first).tag.id unless self.tags.empty?
   end
 
-  def createusertag(tagid)
-    self.tag_assignments.create(:tag_id => tagid, :source => 1) unless
+  def assign_tag(tagid, source)
+    self.tag_assignments.create(:tag_id => tagid, :source => source) unless
       # don't add an assignment if tag hasn't changed
       # this is a bit naive to assignments other than user
       # and could be handled better 

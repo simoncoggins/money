@@ -26,14 +26,14 @@ class TransactionsController < ApplicationController
 
   def edit
     @transaction = Transaction.find(params[:id])
-    @transaction[:tag_id] = Tag.find_by_name(@transaction.tag).id
+    @transaction[:tag_id] = @transaction.tag_id #Tag.find_by_name(@transaction.tag).id
   end
 
   def update
     @transaction = Transaction.find(params[:id])
     tagid = params[:transaction].delete('tag_id')
     if @transaction.update_attributes(params[:transaction]) and
-      @transaction.createusertag(tagid)
+      @transaction.assign_tag(tagid, 1)
       flash[:notice] = 'Information updated'
       redirect_to transaction_url(@transaction)
     else
