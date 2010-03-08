@@ -1,13 +1,13 @@
 <h1>Listing transactions</h1>
 
-<p>Showing multiple items with same id=53 tagged as fuel. Need an iscurrtag?(tagname) method on transaction</p>
+<p>
+Change grouped_transaction to an array so it can be sorted?
+Update tr.tag so it returns tag object instead of tag name
+</p>
 
-<% @tags.each do |tag| %>
+<% @grouped_transaction.each do |tag,transactions| %>
 
-
-<% if tag.transactions.any? %>
-
-<h2><%=tag.name%></h2>
+<h2><%=tag%></h2>
 
 <table>
   <tr>
@@ -16,9 +16,7 @@
     <th>Text</th>
     <th>Tag</th>
   </tr>
-<% tag.transactions.each do |transaction|
-# use partials here
-if transaction.tag == tag.name %>
+<% transactions.each do |transaction| %>
   <tr>
     <td><%= transaction.date %></td>
     <td><%= transaction.amount %></td>
@@ -28,34 +26,10 @@ if transaction.tag == tag.name %>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
     <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-<% end 
-end %>
-</table>
-<% end %>
-
-<% end %>
-
-<h2>Untagged</h2>
-
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Amount</th>
-    <th>Text</th>
-    <th>Tag</th>
-  </tr>
-<% Transaction.untagged.each do |transaction| %>
-  <tr>
-    <td><%= transaction.date %></td>
-    <td><%= transaction.amount %></td>
-    <td><%= transaction.text.split.map {|w| w.capitalize}.join ' ' %></td>
-    <td><%= transaction.tag %></td>
-    <td><%= link_to 'Show', transaction %></td>
-    <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-    <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
 <% end %>
 </table>
+<% end %>
+
 
 <p>
 <%= link_to 'New transaction', new_transaction_path %>

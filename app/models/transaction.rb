@@ -32,20 +32,36 @@ class Transaction < ActiveRecord::Base
       self.tag_assignments.empty?
   end
 
-  def self.untagged
-    self.all.reject{|x| x.tags.any? }
+# now unused (replaced by group_by_tags)
+#  def self.untagged
+#    self.all.reject{|x| x.tags.any? }
+#  end
+#
+#  def self.assigned_tags
+#    alltags = []
+#    self.all.each do |tr|
+#      alltags.concat(tr.tags)
+#    end
+#    alltags.uniq!
+#  end
+
+  # returns hash containing tagnames as keys and array of transactions
+  # with that tag assigned as values
+  def self.group_by_tags
+    result = Hash.new()
+    Transaction.all.each do |tr|
+      tagname = tr.tag || 'untagged'
+      if result.has_key?(tagname)
+        # add to array
+        result[tagname] << tr
+      else
+        # start the array
+        result[tagname] = [tr] 
+      end
+    end
+    result
   end
 
-  # potential replacement function for getting list of tags used
-  # but needs to only include current assigned tag
-  # currently returns list of all tags used in tag assignments
-  def self.assigned_tags
-    alltags = []
-    self.all.each do |tr|
-      alltags.concat(tr.tags)
-    end
-    alltags.uniq!
-  end
   # would be better if tag method returned object, and references were
   # updated so obj.tag => obj.tag.name and obj.tag_id => obj.tag.id
   def tag_id
