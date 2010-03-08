@@ -2,7 +2,9 @@
 
 <p>
 Change grouped_transaction to an array so it can be sorted?
-Update tr.tag so it returns tag object instead of tag name
+Update tr.tag so it returns tag object instead of tag name,
+need to solve issue with whiny nils.
+Solve issue with raising exception in group_by_tags
 </p>
 
 <% @grouped_transaction.each do |tag,transactions| %>

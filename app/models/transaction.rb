@@ -28,7 +28,7 @@ class Transaction < ActiveRecord::Base
   # extra field in transaction updated by
   # after_save method in tag_assignment
   def tag
-    self.tag_assignments.find(:first).tag.name unless 
+    self.tag_assignments.first.tag.name unless 
       self.tag_assignments.empty?
   end
 
@@ -45,11 +45,17 @@ class Transaction < ActiveRecord::Base
 #    alltags.uniq!
 #  end
 
-  # returns hash containing tagnames as keys and array of transactions
+  # Input array of transactions as argument. If none provided, matches 
+  # against all transactions
+  # Returns hash containing tagnames as keys and array of transactions
   # with that tag assigned as values
-  def self.group_by_tags
+  def self.group_by_tags(group=Transaction.all)
+    raise "Group is not an array" unless group.kind_of?(Array)
     result = Hash.new()
-    Transaction.all.each do |tr|
+    group.each do |tr|
+      puts tr.class
+      #TODO why is this error not being raised?
+      raise "Item is not a transaction" unless tr.kind_of?(Transaction)
       tagname = tr.tag || 'untagged'
       if result.has_key?(tagname)
         # add to array
