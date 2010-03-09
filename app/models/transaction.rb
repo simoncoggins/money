@@ -28,22 +28,13 @@ class Transaction < ActiveRecord::Base
   # extra field in transaction updated by
   # after_save method in tag_assignment
   def tag
-    self.tag_assignments.first.tag.name unless 
-      self.tag_assignments.empty?
+    if self.tag_assignments.empty?
+      # no tags, provide an empty tag so transaction.tag.name works
+      Tag.new
+    else
+      self.tag_assignments.first.tag
+    end
   end
-
-# now unused (replaced by group_by_tags)
-#  def self.untagged
-#    self.all.reject{|x| x.tags.any? }
-#  end
-#
-#  def self.assigned_tags
-#    alltags = []
-#    self.all.each do |tr|
-#      alltags.concat(tr.tags)
-#    end
-#    alltags.uniq!
-#  end
 
   # Input array of transactions as argument. If none provided, matches 
   # against all transactions
@@ -54,7 +45,7 @@ class Transaction < ActiveRecord::Base
     result = Hash.new()
     group.each do |tr|
       raise "Group item is not a transaction" unless tr.instance_of?(Transaction)
-      tagname = tr.tag || 'untagged'
+      tagname = tr.tag.name || 'untagged'
       if result.has_key?(tagname)
         # add to array
         result[tagname] << tr
@@ -66,22 +57,16 @@ class Transaction < ActiveRecord::Base
     result
   end
 
-  # would be better if tag method returned object, and references were
-  # updated so obj.tag => obj.tag.name and obj.tag_id => obj.tag.id
-  def tag_id
-    self.tag_assignments.find(:first).tag.id unless self.tags.empty?
-  end
-
   def assign_tag(tagid, source)
     self.tag_assignments.create(:tag_id => tagid, :source => source) unless
       # don't add an assignment if tag hasn't changed
       # this is a bit naive to assignments other than user
       # and could be handled better 
-      self.tag == Tag.find(tagid).name
-  true
+      self.tag.id == tagid
+    true
   end
 
   def iscurrtag?(tagname)
-    self.tag == tagname
+    self.tag.name == tagname
   end
 end
