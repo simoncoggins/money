@@ -1,15 +1,21 @@
 <h1>Listing transactions</h1>
 
 <p>
-Change grouped_transaction to an array so it can be sorted?
-Update tr.tag so it returns tag object instead of tag name,
-need to solve issue with whiny nils.
-Solve issue with raising exception in group_by_tags
+Look at speeding up transaction index page
 </p>
 
-<% @grouped_transaction.each do |tag,transactions| %>
+<%
+@tagnames.each do |tagname| 
+  if @grouped_transactions.has_key?(tagname)
+    # get the transactions for this tag
+    transactions = @grouped_transactions[tagname]
+  else
+    # no transactions assigned, go to next tag
+    next
+  end
+%>
 
-<h2><%=tag%></h2>
+<h2><%=tagname%></h2>
 
 <table>
   <tr>
