@@ -53,9 +53,7 @@ class Transaction < ActiveRecord::Base
     raise "Group is not an array" unless group.kind_of?(Array)
     result = Hash.new()
     group.each do |tr|
-      puts tr.class
-      #TODO why is this error not being raised?
-      raise "Item is not a transaction" unless tr.kind_of?(Transaction)
+      raise "Group item is not a transaction" unless tr.instance_of?(Transaction)
       tagname = tr.tag || 'untagged'
       if result.has_key?(tagname)
         # add to array
