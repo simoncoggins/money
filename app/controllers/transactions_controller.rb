@@ -1,7 +1,12 @@
 class TransactionsController < ApplicationController
 
   def index
-    @grouped_transaction = Transaction.group_by_tags
+    # get an ordered list of tags
+    @tagnames = Tag.find(:all, :order => 'name').map{ |t| t.name }
+    # append the 'untagged' tag
+    @tagnames << 'untagged'
+    # get all transactions in a hash, by tag
+    @grouped_transactions = Transaction.group_by_tags
   end
 
   def show
