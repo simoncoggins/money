@@ -14,5 +14,6 @@ class Tag < ActiveRecord::Base
     :order => "source ASC, updated_at DESC"
   has_many :transactions, :through => :tag_assignments,
     :order => "source ASC, updated_at DESC"
+  has_many :patterns
   validates_presence_of :name
 end
