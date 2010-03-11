@@ -1,0 +1,8 @@
+
+<%= error_messages_for :pattern %>
+
+  <p><label>Text:<br />
+  <%= text_field :pattern, :pattern %></label></p>
+
+  <p><label>Tag:<br />
+  <%= collection_select :pattern, :tag_id, Tag.all, :id, :name, {:prompt => true} %>

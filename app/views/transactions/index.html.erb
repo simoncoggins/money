@@ -1,9 +1,13 @@
 <h1>Listing transactions</h1>
 
-<p>
-Look at speeding up transaction index page
-Consider adding current_tag column to transaction 
-</p>
+<ul>
+<li>Look at speeding up transaction index page
+<li>Consider adding current_tag column to transaction 
+<li>Patterns:
+<li>Adding pattern should tag untagged transactions
+<li>Editing pattern should update tagged transactions. How to track which have been applied? Extra column in tag_assignments? Or use patternid instead of tagid in transaction?
+<li>Destroying pattern should delete tags in transactions. As above
+</ul>
 
 <%
 @tagnames.each do |tagname| 
@@ -24,6 +28,7 @@ Consider adding current_tag column to transaction
     <th>Amount</th>
     <th>Text</th>
     <th>Tag</th>
+    <th colspan="3">Options</th>
   </tr>
 <% transactions.each do |transaction| %>
   <tr>

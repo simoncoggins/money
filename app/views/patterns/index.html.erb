@@ -1,0 +1,21 @@
+<h1>Listing patterns</h1>
+
+<table>
+  <tr>
+    <th>Pattern</th>
+    <th>Tag</th>
+  </tr>
+<% @patterns.each do |pattern| %>
+  <tr>
+    <td><%= pattern.pattern %></td>
+    <td><%= pattern.tag.name %></td>
+    <td><%= link_to 'Show', pattern %></td>
+    <td><%= link_to 'Edit', edit_pattern_path(pattern) %></td>
+    <td><%= link_to 'Destroy', destroy_pattern_path(pattern), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<p>
+<%= link_to 'New pattern', new_pattern_path %>
+</p>

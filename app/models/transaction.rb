@@ -69,4 +69,12 @@ class Transaction < ActiveRecord::Base
   def iscurrtag?(tagname)
     self.tag.name == tagname
   end
+
+  # true if transaction name matches regexp
+  def matches?(regexp)
+    raise "Argument is not a regexp object" unless regexp.instance_of?(Regexp)
+    !(self.text =~ regexp).nil?
+  end
+
 end
+

@@ -2,12 +2,18 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags
 
   # The priority is based upon order of creation: first created -> highest priority.
-
 map.transactions     'transactions',          :controller => 'transactions'
 map.new_transaction  'transactions/new',      :controller => 'transactions', :action => 'new'
 map.edit_transaction 'transaction/edit/:id',  :controller => 'transactions', :action => 'edit'
 map.destroy_transaction 'transaction/destroy/:id', :controller => 'transactions', :action => 'destroy'
 map.transaction      'transactions/show/:id', :controller => 'transactions', :action => 'show'
+
+
+map.patterns     'patterns',          :controller => 'patterns'
+map.new_pattern  'patterns/new',      :controller => 'patterns', :action => 'new'
+map.edit_pattern 'pattern/edit/:id',  :controller => 'patterns', :action => 'edit'
+map.destroy_pattern 'pattern/destroy/:id', :controller => 'patterns', :action => 'destroy'
+map.pattern      'patterns/show/:id', :controller => 'patterns', :action => 'show'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
