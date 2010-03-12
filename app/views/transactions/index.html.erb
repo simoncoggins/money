@@ -22,7 +22,7 @@
 
 <h2><%=tagname%></h2>
 
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
   <tr>
     <th>Date</th>
     <th>Amount</th>
@@ -33,7 +33,9 @@
 <% transactions.each do |transaction| %>
   <tr>
     <td><%= transaction.date %></td>
-    <td><%= transaction.amount %></td>
+    <td class="<%=
+    transaction.credit? ? "credit" : "debit"
+    %>"><%= transaction.amount %></td> 
     <td><%= transaction.text.split.map{|w| w.capitalize}.join ' ' %></td>
     <td><%= transaction.tag.name %></td>
     <td><%= link_to 'Show', transaction %></td>

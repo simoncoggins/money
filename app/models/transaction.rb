@@ -70,7 +70,7 @@ class Transaction < ActiveRecord::Base
     raise "Not an array" unless group.instance_of?(Array)
     group.select do |tr|
       raise "Not a transaction" unless tr.instance_of?(Transaction)
-      tr.amount >= 0
+      tr.credit?
     end
   end
 
@@ -80,8 +80,16 @@ class Transaction < ActiveRecord::Base
     raise "Not an array" unless group.instance_of?(Array)
     group.select do |tr|
       raise "Not a transaction" unless tr.instance_of?(Transaction)
-      tr.amount < 0
+      tr.debit?
     end
+  end
+
+  def credit?
+    self.amount >= 0
+  end
+
+  def debit?
+    !self.credit?
   end
 
   # given an array of transactions, return the sum of all the amounts
