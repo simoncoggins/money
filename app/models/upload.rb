@@ -22,8 +22,6 @@ class Upload < ActiveRecord::Base
         amount = line[1]
         text = line[2]
         tr = Transaction.create(:statement_id => 1, :date => date, :amount => amount, :text => text)
-        # assign tags by matching to patterns
-        tr.apply_patterns
       end
     end
   end

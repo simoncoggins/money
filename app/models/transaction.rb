@@ -18,11 +18,13 @@ class Transaction < ActiveRecord::Base
     :order => "source ASC, updated_at DESC"
   has_many :tags, :through => :tag_assignments, 
     :order => "source ASC, updated_at DESC"
-  attr_accessible :date, :amount, :text, :statement_id
 
   validates_presence_of :date, :text, :amount, :statement_id
   validates_numericality_of :amount
   validates_numericality_of :statement_id, :only_integer => true
+
+  attr_accessible :date, :amount, :text, :statement_id
+  after_create :check_patterns
 
   # could be done more efficiently with
   # extra field in transaction updated by
@@ -34,6 +36,11 @@ class Transaction < ActiveRecord::Base
     else
       self.tag_assignments.first.tag
     end
+  end
+
+  # needed by collection_select to pick default
+  def tag_id
+    self.tag.id
   end
 
   # Input array of transactions as argument. If none provided, matches 
@@ -55,6 +62,36 @@ class Transaction < ActiveRecord::Base
       end
     end
     result
+  end
+
+  # given an array of transactions, returns the ones where the
+  # transactions are credits
+  def self.get_credits(group=Transaction.all)
+    raise "Not an array" unless group.instance_of?(Array)
+    group.select do |tr|
+      raise "Not a transaction" unless tr.instance_of?(Transaction)
+      tr.amount >= 0
+    end
+  end
+
+  # given an array of transactions, returns the ones where the
+  # transactions are debits
+  def self.get_debits(group=Transaction.all)
+    raise "Not an array" unless group.instance_of?(Array)
+    group.select do |tr|
+      raise "Not a transaction" unless tr.instance_of?(Transaction)
+      tr.amount < 0
+    end
+  end
+
+  # given an array of transactions, return the sum of all the amounts
+  # involved, or 0 if there are no transactions
+  def self.total_amount(group=Transaction.all)
+    raise "Not an array" unless group.instance_of?(Array)
+    group.map do |tr|
+      raise "Not a transaction" unless tr.instance_of?(Transaction)
+      tr.amount
+    end.sum
   end
 
   def assign_tag(tagid, source)
@@ -98,6 +135,12 @@ class Transaction < ActiveRecord::Base
       end
     end
     false
+  end
+
+  protected
+
+  def check_patterns
+    self.apply_patterns
   end
 
 end

@@ -42,6 +42,13 @@
   </tr>
 <% end %>
 </table>
+<%
+credits = Transaction.get_credits(transactions)
+debits = Transaction.get_debits(transactions)
+%>
+Credits: <strong><%= Transaction.total_amount(credits) %></strong><br />
+Debits: <strong><%= Transaction.total_amount(debits) %></strong><br />
+Total: <strong><%= Transaction.total_amount(transactions) %></strong><br />
 <% end %>
 
 
