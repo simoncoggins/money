@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100117080826
+# Schema version: 20100311074344
 #
 # Table name: transactions
 #
@@ -41,7 +41,7 @@ class Transaction < ActiveRecord::Base
   # Returns hash containing tagnames as keys and array of transactions
   # with that tag assigned as values
   def self.group_by_tags(group=Transaction.all)
-    raise "Group is not an array" unless group.kind_of?(Array)
+    raise "Group is not an array" unless group.instance_of?(Array)
     result = Hash.new()
     group.each do |tr|
       raise "Group item is not a transaction" unless tr.instance_of?(Transaction)
@@ -74,6 +74,30 @@ class Transaction < ActiveRecord::Base
   def matches?(regexp)
     raise "Argument is not a regexp object" unless regexp.instance_of?(Regexp)
     !(self.text =~ regexp).nil?
+  end
+
+  # attempts to apply pattern provided to current transaction. If it matches
+  # assign the pattern's tag and return true, otherwise return false
+  def apply_pattern(pattern)
+    raise "Not a pattern" unless pattern.instance_of?(Pattern)
+    if self.matches?(pattern.regexp)
+      self.assign_tag(pattern.tag_id, 2)
+      true
+    else
+      false
+    end
+  end
+
+  # try applying all the current patterns to current transaction. Stops 
+  # after the first matching pattern
+  def apply_patterns
+    Pattern.all.each do |pattern|
+      if self.apply_pattern(pattern)
+        # only apply first pattern
+        return true
+      end
+    end
+    false
   end
 
 end

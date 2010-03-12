@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20100311074344
+#
+# Table name: uploads
+#
+#  id         :integer         not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # one:

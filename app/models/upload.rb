@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20100311074344
+#
+# Table name: uploads
+#
+#  id         :integer         not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'csv'
 class Upload < ActiveRecord::Base
   def self.import(upload)
@@ -12,13 +22,8 @@ class Upload < ActiveRecord::Base
         amount = line[1]
         text = line[2]
         tr = Transaction.create(:statement_id => 1, :date => date, :amount => amount, :text => text)
-        patterns.each do |pattern|
-          # assign tag to first pattern that matches
-          if tr.matches?(pattern.regexp)
-            tr.assign_tag(pattern.tag_id, 2)
-            break
-          end
-        end
+        # assign tags by matching to patterns
+        tr.apply_patterns
       end
     end
   end
