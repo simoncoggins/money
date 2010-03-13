@@ -20,7 +20,8 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(params[:transaction])
     @transaction.statement_id = 1
-    if @transaction.save
+    tagid = params[:transaction].delete('tag_id')
+    if @transaction.save and @transaction.assign_tag(tagid, 1)
       flash[:notice] = 'Transaction saved!'
       redirect_to :controller => 'transactions', :action => 'new'
     else
