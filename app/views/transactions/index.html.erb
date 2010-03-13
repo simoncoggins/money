@@ -35,7 +35,7 @@
     <td class="<%=
     transaction.credit? ? "credit" : "debit"
     %>"><%= as_currency(transaction.amount) %></td> 
-    <td><%= transaction.text.split.map{|w| w.capitalize}.join ' ' %></td>
+    <td><%= transaction.pretty_text %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
     <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>

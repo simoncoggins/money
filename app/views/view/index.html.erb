@@ -1,24 +1,78 @@
-<h1>Graph</h1>
+<h2>Account Balance</h2>
 
-<div id="flot-graph"></div>
+<div id="placeholder"></div>
 <script id="source" language="javascript" type="text/javascript"> 
+var plot
 $(function () {
+    // currently getting transaction text as third element
+    // might want to make third element object containing all transaction
+    // data
     var data = <%= @data.inspect %>;
-
-    $.plot($("#flot-graph"), [ {
+    plot = $.plot($("#placeholder"), [ {
         data: data,
         color: "rgb(30, 180, 20)",
         threshold: { below: 0.0, color: "rgb(200, 20, 30)" },
-        lines: { steps: true }
+        lines: { steps: true },
+        label: "&nbsp;",
       }], {
         xaxis: { mode: "time" },
         yaxis: { tickFormatter: function (v, axis) {
           var num = v.toFixed(axis.tickDecimals);
           var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num); 
           return numstr;
-        }
-      },
+          },
+          labelWidth: 50,
+        },
+        crosshair: { mode: "x" },
+        grid: { hoverable: true, autoHighlight: false },
     });
+
+    var legends = $("#placeholder .legendLabel");
+    legends.each(function () {
+        // fix the widths so they don't jump around
+        $(this).css('width', '60px');
+    });
+
+    var updateLegendTimeout = null;
+    var latestPosition = null;
+    
+    function updateLegend() {
+        updateLegendTimeout = null;
+        
+        var pos = latestPosition;
+        
+        var axes = plot.getAxes();
+        if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||
+            pos.y < axes.yaxis.min || pos.y > axes.yaxis.max)
+            return;
+ 
+        var i, j, dataset = plot.getData();
+        for (i = 0; i < dataset.length; ++i) {
+            var series = dataset[i];
+            // find the nearest points, x-wise
+            // as it stands, can't hover last point
+            for (j = 0; j < series.data.length; ++j) {
+                if (series.data[j][0] >= pos.x){
+                    var y = (j != 0) ? series.data[j-1][1] : series.data[0][1];
+                    break;
+                }
+            }
+            var num = y.toFixed(2);
+            var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num);
+            var ind = (j != 0) ? j-1 : 0;
+            // need to use originSeries because of thresholding
+            var source = dataset[1].originSeries.data[ind];
+            var textstr = source[2];
+            legends.eq(i).text(series.label = numstr+' '+textstr);
+        }
+    }
+
+    $("#placeholder").bind("plothover",  function (event, pos, item) {
+        latestPosition = pos;
+        if (!updateLegendTimeout)
+            updateLegendTimeout = setTimeout(updateLegend, 50);
+    });
+
 });
 </script>
 

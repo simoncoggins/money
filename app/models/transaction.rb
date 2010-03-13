@@ -170,11 +170,19 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.get_all_flot_data
+    data = Array.new
     balance = 0.0
-    @transactions = Transaction.find(:all, :order => 'date').map do |tr|
+    Transaction.find(:all, :order => 'date').each do |tr|
       balance += tr.amount
-      [tr.date.to_time.to_i*1000, balance]
+      # may want to pass all transaction info as object
+      data << [tr.date.to_time.to_i*1000, balance, tr.pretty_text]
     end
+    data
+  end
+
+  def pretty_text
+    # capitalize first letter of each word, and compress multiple spaces
+    self.text.split.map{|w| w.capitalize}.join ' '
   end
 
 end
