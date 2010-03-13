@@ -51,18 +51,17 @@ $(function () {
             var series = dataset[i];
             // find the nearest points, x-wise
             // as it stands, can't hover last point
-            for (j = 0; j < series.data.length; ++j) {
-                if (series.data[j][0] >= pos.x){
-                    var y = (j != 0) ? series.data[j-1][1] : series.data[0][1];
+            for (j = series.data.length - 1; j >= 0; --j) {
+                if (series.data[j][0] <= pos.x){
+                    var y = series.data[j][1];
                     break;
                 }
             }
             var num = y.toFixed(2);
             var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num);
-            var ind = (j != 0) ? j-1 : 0;
             // need to use originSeries because of thresholding
-            var source = dataset[1].originSeries.data[ind];
-            var textstr = source[2];
+            var textstr = (dataset[1].originSeries.data[j] != null) ?
+              dataset[1].originSeries.data[j][2] : '';
             legends.eq(i).text(series.label = numstr+' '+textstr);
         }
     }
