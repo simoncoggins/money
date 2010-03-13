@@ -24,7 +24,7 @@ class Transaction < ActiveRecord::Base
   validates_numericality_of :statement_id, :only_integer => true
 
   attr_accessible :date, :amount, :text, :statement_id
-  after_create :check_patterns
+  after_create :apply_patterns
 
   # could be done more efficiently with
   # extra field in transaction updated by
@@ -159,10 +159,14 @@ class Transaction < ActiveRecord::Base
     false
   end
 
-  protected
-
-  def check_patterns
-    self.apply_patterns
+  def get_assigned_patterns
+    # pattern based tag assignments assigned to this transaction
+    tas = TagAssignment.find(:all, :conditions => { 
+      :transaction_id => self.id, :source => 2})
+    # return array of Patterns that created the assignments
+    tas.map do |ta|
+      Pattern.find(ta.source_info)
+    end
   end
 
 end
