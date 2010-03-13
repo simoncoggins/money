@@ -18,4 +18,29 @@ class TagAssignment < ActiveRecord::Base
 
   validates_presence_of :tag_id, :transaction_id, :source
   validates_numericality_of :tag_id, :transaction_id, :source, :only_integer => true, :message => "can only be whole number."
+
+  after_destroy :update_patterns
+
+  # still not right - here newly assigned patterns will overrule any
+  # existing ones, temporarily changed to only update if no other patterns
+  # assigned (better than nothing)
+  def update_patterns
+    # only update assignments from patterns
+    if self.source == 2
+      transaction = self.transaction
+      # now get array of all patterns assigned to this transaction
+      # first find all pattern TAs for this transaction, then
+      # find the pattern and get the pattern object
+      existing_patterns = TagAssignment.find(:all, 
+        :conditions => { :transaction_id => transaction.id, 
+        :source => 2}).map {|ta| ta.source_info}.map {|pid| Pattern.find(pid)}
+      # candidates to try are any patterns not already assigned
+      #candidates = Pattern.all - existing_patterns
+      #transaction.apply_patterns(candidates)
+      
+      # only apply patterns if there are no others already set
+      transaction.apply_patterns(Pattern.all) if existing_patterns.count == 0
+    end
+  end
+
 end

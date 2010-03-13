@@ -147,8 +147,10 @@ class Transaction < ActiveRecord::Base
 
   # try applying all the current patterns to current transaction. Stops 
   # after the first matching pattern
-  def apply_patterns
-    Pattern.all.each do |pattern|
+  def apply_patterns(patterns=Pattern.all)
+    raise 'Not an array' unless patterns.instance_of?(Array)
+    patterns.each do |pattern|
+      raise 'Not a pattern' unless pattern.instance_of?(Pattern)
       if self.apply_pattern(pattern)
         # only apply first pattern
         return true

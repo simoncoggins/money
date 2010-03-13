@@ -9,6 +9,18 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+# == Schema Information
+# Schema version: 20100313000256
+#
+# Table name: patterns
+#
+#  id         :integer         not null, primary key
+#  pattern    :string(255)
+#  tag_id     :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
 class Pattern < ActiveRecord::Base
   belongs_to :tag
 
