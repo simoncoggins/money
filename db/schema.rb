@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100117080826) do
+ActiveRecord::Schema.define(:version => 20100313000256) do
+
+  create_table "patterns", :force => true do |t|
+    t.string   "pattern"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "statements", :force => true do |t|
     t.string   "name"
@@ -23,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20100117080826) do
     t.integer  "source"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "source_info"
   end
 
   create_table "tags", :force => true do |t|
@@ -38,6 +46,11 @@ ActiveRecord::Schema.define(:version => 20100117080826) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
+  end
+
+  create_table "uploads", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

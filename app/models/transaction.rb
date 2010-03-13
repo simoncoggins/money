@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100311074344
+# Schema version: 20100313000256
 #
 # Table name: transactions
 #
@@ -102,8 +102,20 @@ class Transaction < ActiveRecord::Base
     end.sum
   end
 
-  def assign_tag(tagid, source)
-    self.tag_assignments.create(:tag_id => tagid, :source => source) unless
+  # return a transaction's amount as a string with currency mark appended
+  def currency_amount
+    # define this elsewhere
+    currencymark = '$'
+    if self.credit?
+      currencymark + self.amount.to_s
+    else
+      # remove first character (minus sign) and add before dollar
+      '-' + currencymark + self.amount.to_s[1..-1]
+    end
+  end
+
+  def assign_tag(tagid, source, source_info=nil)
+    self.tag_assignments.create(:tag_id => tagid, :source => source, :source_info => source_info) unless
       # don't add an assignment if tag hasn't changed
       # this is a bit naive to assignments other than user
       # and could be handled better 
@@ -126,7 +138,7 @@ class Transaction < ActiveRecord::Base
   def apply_pattern(pattern)
     raise "Not a pattern" unless pattern.instance_of?(Pattern)
     if self.matches?(pattern.regexp)
-      self.assign_tag(pattern.tag_id, 2)
+      self.assign_tag(pattern.tag_id, 2, pattern.id)
       true
     else
       false

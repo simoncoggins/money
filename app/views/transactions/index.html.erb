@@ -35,7 +35,7 @@
     <td><%= transaction.date %></td>
     <td class="<%=
     transaction.credit? ? "credit" : "debit"
-    %>"><%= transaction.amount %></td> 
+    %>"><%= as_currency(transaction.amount) %></td> 
     <td><%= transaction.text.split.map{|w| w.capitalize}.join ' ' %></td>
     <td><%= transaction.tag.name %></td>
     <td><%= link_to 'Show', transaction %></td>
@@ -48,9 +48,15 @@
 credits = Transaction.get_credits(transactions)
 debits = Transaction.get_debits(transactions)
 %>
-Credits: <strong><%= Transaction.total_amount(credits) %></strong><br />
-Debits: <strong><%= Transaction.total_amount(debits) %></strong><br />
-Total: <strong><%= Transaction.total_amount(transactions) %></strong><br />
+Credits: <strong>
+<%= as_currency(Transaction.total_amount(credits)) %>
+</strong><br />
+Debits: <strong>
+<%= as_currency(Transaction.total_amount(debits)) %>
+</strong><br />
+Total: 
+<strong><%= as_currency(Transaction.total_amount(transactions)) %>
+</strong><br />
 <% end %>
 
 

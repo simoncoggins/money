@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100311074344
+# Schema version: 20100313000256
 #
 # Table name: tag_assignments
 #
@@ -9,6 +9,7 @@
 #  source         :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  source_info    :integer
 #
 
 class TagAssignment < ActiveRecord::Base

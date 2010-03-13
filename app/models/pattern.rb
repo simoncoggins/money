@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100311074344
+# Schema version: 20100313000256
 #
 # Table name: patterns
 #
@@ -18,6 +18,18 @@ class Pattern < ActiveRecord::Base
 
   attr_accessible :pattern, :tag_id
   default_scope :order => 'updated_at DESC'
+
+  after_destroy :remove_assignments
+
+  # remove any assignments by pattern when it is destroyed
+  def remove_assignments
+  #  tas = TagAssignment.find_all_by_source_and_source_info(2, self.id)
+  #  tas.each do |ta|
+  #    ta.destroy
+  #  end
+  #  tas.count
+    TagAssignment.delete_all(:source => 2, :source_info => self.id)  
+  end
 
   def regexp
     # escape all characters, except * as wildcard
