@@ -1,5 +1,24 @@
 /* screen stylesheet */
 
+
+table.transactions, table.transactions td, table.transactions th {
+  border-color: #000;
+  border-style: solid;
+}
+
+table.transactions {
+  border-width: 0 0 1px 1px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+table.transactions td, table.transactions th {
+  border-width: 1px 1px 0 0;
+  margin: 0px;
+  padding: 4px;
+  background-color: #ffe;
+}
+
 .credit {
   color: #090;
 }

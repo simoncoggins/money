@@ -4,9 +4,8 @@
 <li>Look at speeding up transaction index page
 <li>Consider adding current_tag column to transaction 
 <li>Patterns:
-<li>Adding pattern should tag untagged transactions
 <li>Editing pattern should update tagged transactions. How to track which have been applied? Extra column in tag_assignments? Or use patternid instead of tagid in transaction?
-<li>Destroying pattern should delete tags in transactions. As above
+<li>Destroying pattern, should we recheck other patterns?
 </ul>
 
 <%
@@ -20,14 +19,13 @@
   end
 %>
 
-<h2><%=tagname%></h2>
+<h2><%=tagname.capitalize%></h2>
 
-<table border="1" cellpadding="5" cellspacing="0">
+<table class="transactions">
   <tr>
     <th>Date</th>
     <th>Amount</th>
     <th>Text</th>
-    <th>Tag</th>
     <th colspan="3">Options</th>
   </tr>
 <% transactions.each do |transaction| %>
@@ -37,7 +35,6 @@
     transaction.credit? ? "credit" : "debit"
     %>"><%= as_currency(transaction.amount) %></td> 
     <td><%= transaction.text.split.map{|w| w.capitalize}.join ' ' %></td>
-    <td><%= transaction.tag.name %></td>
     <td><%= link_to 'Show', transaction %></td>
     <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
     <td><%= link_to 'Destroy', destroy_transaction_path(transaction), :confirm => 'Are you sure?', :method => :delete %></td>
@@ -48,15 +45,17 @@
 credits = Transaction.get_credits(transactions)
 debits = Transaction.get_debits(transactions)
 %>
-Credits: <strong>
+<p>
+Credits: <strong class="credit">
 <%= as_currency(Transaction.total_amount(credits)) %>
 </strong><br />
-Debits: <strong>
+Debits: <strong class="debit">
 <%= as_currency(Transaction.total_amount(debits)) %>
 </strong><br />
 Total: 
 <strong><%= as_currency(Transaction.total_amount(transactions)) %>
-</strong><br />
+</strong>
+</p>
 <% end %>
 
 
