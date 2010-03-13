@@ -3,13 +3,18 @@
   <title>My application</title>
 <%= stylesheet_link_tag 'screen', :media => 'screen' %>
 <% #= stylesheet_link_tag 'print', :media => 'print' %>
+
+<!--[if IE]><%= javascript_include_tag 'excanvas.min' %><![endif]-->
+<%= javascript_include_tag 'jquery.min' %>
+<%= javascript_include_tag 'jquery.flot.min' %>
+<%= javascript_include_tag 'jquery.flot.threshold.min' %>
 </head>
 <body>
 <p>
 <%= link_to "Transactions", :controller=> 'transactions' %> |
 <%= link_to "Tags", :controller => 'tags' %> | 
 <%= link_to "Patterns", :controller => 'patterns' %> |  
-<%= link_to "Upload Statement", :controller => 'upload' %> |
+<%= link_to "Upload Statement", :controller => 'upload' %> | 
 <%= link_to "Graphs", :controller => 'view' %>
 </p>
 <p style="color: green"><%= flash[:notice] %></p>

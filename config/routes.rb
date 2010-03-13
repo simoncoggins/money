@@ -15,6 +15,7 @@ map.edit_pattern 'pattern/edit/:id',  :controller => 'patterns', :action => 'edi
 map.destroy_pattern 'pattern/destroy/:id', :controller => 'patterns', :action => 'destroy'
 map.pattern      'patterns/show/:id', :controller => 'patterns', :action => 'show'
 
+map.view 'view', :controller => 'view'
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

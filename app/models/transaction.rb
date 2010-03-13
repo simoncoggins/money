@@ -169,5 +169,13 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def self.get_all_flot_data
+    balance = 0.0
+    @transactions = Transaction.find(:all, :order => 'date').map do |tr|
+      balance += tr.amount
+      [tr.date.to_time.to_i*1000, balance]
+    end
+  end
+
 end
 

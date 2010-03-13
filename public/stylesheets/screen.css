@@ -1,5 +1,9 @@
 /* screen stylesheet */
 
+#flot-graph {
+  width: 800px;
+  height: 400px;
+}
 
 table.transactions, table.transactions td, table.transactions th {
   border-color: #000;
