@@ -15,8 +15,6 @@ class PatternsController < ApplicationController
   def create
     @pattern = Pattern.new(params[:pattern])
     if @pattern.save
-      # now assign tags based on the new pattern
-      @pattern.apply_to_transactions
       flash[:notice] = 'Pattern saved!'
       redirect_to :controller => 'patterns', :action => 'new'
       # at this point we may want to reanalyse any untagged

@@ -18,5 +18,4 @@ class TagAssignment < ActiveRecord::Base
 
   validates_presence_of :tag_id, :transaction_id, :source
   validates_numericality_of :tag_id, :transaction_id, :source, :only_integer => true, :message => "can only be whole number."
-
 end
