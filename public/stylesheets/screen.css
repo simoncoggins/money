@@ -4,6 +4,21 @@
   width: 800px;
   height: 400px;
 }
+#transaction table {
+  position: absolute;
+  left: 820px;
+  top: 100px;
+  height: 300px;
+  width: 400px;
+}
+#transaction th {
+  width: 100px;
+  height: 50px;
+}
+#transaction td {
+  width: 300px;
+  height: 30px;
+}
 
 table.transactions, table.transactions td, table.transactions th {
   border-color: #000;

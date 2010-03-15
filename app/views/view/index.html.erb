@@ -1,6 +1,9 @@
 <h2>Account Balance</h2>
-
+<h3 id="range"></h3>
+<p>Drag a region to zoom in, click to zoom out</p>
 <div id="placeholder"></div>
+<div id="transaction"><table class="transactions"><tr><td>initial message</td></tr></table></div>
+<div id="overview" style="width:166px;height:100px;position:absolute;left: 600px; top:50px;"></div>
 <script id="source" language="javascript" type="text/javascript"> 
 var plot
 $(function () {
@@ -8,13 +11,9 @@ $(function () {
     // might want to make third element object containing all transaction
     // data
     var data = <%= @data.inspect %>;
-    plot = $.plot($("#placeholder"), [ {
-        data: data,
-        color: "rgb(30, 180, 20)",
-        threshold: { below: 0.0, color: "rgb(200, 20, 30)" },
-        lines: { steps: true },
-        label: "&nbsp;",
-      }], {
+    showDateRange(data[0][0],data[data.length-1][0]);
+
+    var options = {
         xaxis: { mode: "time" },
         yaxis: { tickFormatter: function (v, axis) {
           var num = v.toFixed(axis.tickDecimals);
@@ -24,18 +23,61 @@ $(function () {
           labelWidth: 50,
         },
         crosshair: { mode: "x" },
-        grid: { hoverable: true, autoHighlight: false },
-    });
+        selection: { mode: "x" },
+        grid: { hoverable: true, clickable: true, autoHighlight: false },
+    }; 
 
-    var legends = $("#placeholder .legendLabel");
-    legends.each(function () {
-        // fix the widths so they don't jump around
-        $(this).css('width', '60px');
+    var d = {
+        data: data,
+        color: "rgb(30, 180, 20)",
+        threshold: { below: 0.0, color: "rgb(200, 20, 30)" },
+        lines: { steps: true },
+      }
+
+    var plot = $.plot($("#placeholder"), [ d ], options);
+
+    var overview = $.plot($("#overview"), [ d],{
+            series: {
+            lines: { show: true, lineWidth: 1 },
+            shadowSize: 0
+        },
+        xaxis: { mode: "time", ticks: 4, tickFormatter: function(){return ''} },
+        yaxis: { ticks: 3, tickFormatter: function(){return ''} },
+        grid: { color: "#999" },
+        selection: { mode: "x" }
     });
 
     var updateLegendTimeout = null;
     var latestPosition = null;
-    
+
+    $("#placeholder").bind("plotselected", function (event, ranges) {
+      showDateRange(ranges.xaxis.from,ranges.xaxis.to);
+        // do the zooming
+        plot = $.plot($("#placeholder"), [d],
+                      $.extend(true, {}, options, {
+                          xaxis: {
+                            min: ranges.xaxis.from,
+                            max: ranges.xaxis.to
+                          }
+                      }));
+ // don't fire event on the overview to prevent eternal loop
+        overview.setSelection(ranges, true);
+    });
+
+    $("#overview").bind("plotselected", function (event, ranges) {
+        plot.setSelection(ranges);
+    });
+
+    $("#placeholder").bind("plotclick", function (event) {
+      overview.clearSelection();
+      plot = $.plot($("#placeholder"), [d], options);
+    });
+
+    $("#overview").bind("plotclick", function (event) {
+      plot = $.plot($("#placeholder"), [d], options);
+      plot.clearSelection();
+    });
+ 
     function updateLegend() {
         updateLegendTimeout = null;
         
@@ -50,7 +92,6 @@ $(function () {
         for (i = 0; i < dataset.length; ++i) {
             var series = dataset[i];
             // find the nearest points, x-wise
-            // as it stands, can't hover last point
             for (j = series.data.length - 1; j >= 0; --j) {
                 if (series.data[j][0] <= pos.x){
                     var y = series.data[j][1];
@@ -60,9 +101,14 @@ $(function () {
             var num = y.toFixed(2);
             var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num);
             // need to use originSeries because of thresholding
-            var textstr = (dataset[1].originSeries.data[j] != null) ?
-              dataset[1].originSeries.data[j][2] : '';
-            legends.eq(i).text(series.label = numstr+' '+textstr);
+            if (dataset[1].originSeries.data[j] != null) {
+              // using jquery parseJSON would be better, but need to use
+              // newer version of JSON for it to work
+              //var details = jQuery.parseJSON(dataset[1].originSeries.data[j][2]);
+              // not sure why we need to include square brackets and [0] at end?
+              var details = eval('['+dataset[1].originSeries.data[j][2]+']')[0];
+            }
+            showTransaction(numstr, details);
         }
     }
 
@@ -73,5 +119,35 @@ $(function () {
     });
 
 });
+
+function showTransaction(balance, details) {
+  var amountclass = (details.amount.indexOf('-') == -1) ? 'credit' : 'debit';
+  var balclass = (balance.indexOf('-') == -1) ? 'credit' : 'debit';
+  var htmlstr = '';
+  d = new Date(details.trdate);
+  // should only alter the cells, not rewrite whole table
+  htmlstr += '<table class="transactions">';
+  htmlstr += '<tr><th>Date of transaction:</th><td>'+d.toLocaleDateString()+'</td></tr>';
+  htmlstr += '<tr><th>Amount:</th><td class="'+amountclass+'">'+details.amount+'</td></tr>';
+  htmlstr += '<tr valign="top"><th>Description:</th><td>'+details.text+'</td></tr>';
+  htmlstr += '<tr><th>Balance afterwards:</th><td class="'+balclass+'">'+balance+'</td></tr>';
+  htmlstr += '</table>';
+  $('#transaction').html(htmlstr);
+}
+
+function showDateRange(from, to) {
+      var todate = new Date(to);
+      var fromdate = new Date(from);
+      var tostr = todate.toLocaleDateString();
+      var fromstr = fromdate.toLocaleDateString();
+      if (tostr == fromstr) {
+        var out = tostr;
+      } else {
+        var out = fromstr + " to " + tostr;
+      }
+      $("#range").text(out);
+ 
+}
+
 </script>
 

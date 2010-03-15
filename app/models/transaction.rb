@@ -64,6 +64,7 @@ class Transaction < ActiveRecord::Base
     result
   end
 
+
   # given an array of transactions, returns the ones where the
   # transactions are credits
   def self.get_credits(group=Transaction.all)
@@ -172,13 +173,46 @@ class Transaction < ActiveRecord::Base
   def self.get_all_flot_data
     data = Array.new
     balance = 0.0
-    Transaction.find(:all, :order => 'date').each do |tr|
-      balance += tr.amount
-      # may want to pass all transaction info as object
-      data << [tr.date.to_time.to_i*1000, balance, tr.pretty_text]
+#    Transaction.find(:all, :order => 'date').each do |tr|
+    Transaction.find(:all, :order => 'date,id DESC').group_by(&:date).each do |date, trs|
+      group_count = trs.count
+      day_fraction = 1.0 / (group_count + 1)
+
+      trs.each_with_index do |tr, i|
+        balance += tr.amount
+        obj = {'id' => tr.id,
+             'trdate' => tr.date, # avoid using JS reserved date
+             'text' => tr.pretty_text,
+             'amount' => tr.currency_amount,
+             'statement_id' => tr.statement_id,
+             'created_at' => tr.created_at,
+             'updated_at' => tr.updated_at
+        }
+        time = tr.date.to_time.to_i*1000 + day_fraction*(i+1)*60*60*24*1000
+
+        # may want to pass all transaction info as object
+        data << [time, balance, obj.to_json]
+      end
     end
     data
   end
+
+  # TODO this doesn't work because date objects can't accept fractions -
+  # need to merge this into get_all_flot_data function to pass split dates
+  # to js without changing original values
+  # might want to sort by date then id to ensure they are listed in the 
+  # order they were imported
+  def self.separate_daily_transactions(transactions=Transaction.all)
+    grouped = transactions.group_by(&:date).each do |date, trs|
+      group_count = trs.count
+      day_fraction = 1.0 / (group_count + 1)
+      
+      trs.each_with_index do |tr,i|
+        tr.update_attribute('date', tr.date + day_fraction*(i+1) )
+      end
+    end
+  end
+
 
   def pretty_text
     # capitalize first letter of each word, and compress multiple spaces
