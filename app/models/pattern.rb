@@ -9,18 +9,6 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
-
-# == Schema Information
-# Schema version: 20100313000256
-#
-# Table name: patterns
-#
-#  id         :integer         not null, primary key
-#  pattern    :string(255)
-#  tag_id     :integer
-#  created_at :datetime
-#  updated_at :datetime
-#
 class Pattern < ActiveRecord::Base
   belongs_to :tag
 
@@ -60,6 +48,8 @@ class Pattern < ActiveRecord::Base
     no_longer_matches.each do |tr|
       tr.tag_assignments.find_by_source_and_source_info(2, 
         self.id).destroy if self.has_attribute?('id')
+      # this is not called at the moment when ta's are destroyed
+      tr.update_current_tag
     end
 
     new_matches = current_trs - existing_trs
