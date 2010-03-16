@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100313000256
+# Schema version: 20100316050953
 #
 # Table name: tag_assignments
 #
@@ -40,7 +40,8 @@ class TagAssignment < ActiveRecord::Base
     end
 
     # destroying an assignment may change current tag
-    self.update_current_tag
+    # TODO fix this - it fails because self is nil?
+    #self.transaction.update_current_tag
   end
 
   # wrapper to call Transaction.update_current_tag

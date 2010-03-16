@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100313000256
+# Schema version: 20100316050953
 #
 # Table name: transactions
 #
@@ -10,6 +10,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #  statement_id :integer
+#  currtagid    :integer
 #
 
 class Transaction < ActiveRecord::Base
@@ -28,24 +29,11 @@ class Transaction < ActiveRecord::Base
 
   # Input array of transactions as argument. If none provided, matches 
   # against all transactions
-  # Returns hash containing tagnames as keys and array of transactions
-  # with that tag assigned as values
-  # TODO replace with proper group_by
+  # Returns array of tag ids and transactions of the form:
+  # [ [tagid, [tr1, tr2, tr3, ..]], [anothertagid, ...], ... ]
   def self.group_by_tags(group=Transaction.all)
-    raise "Group is not an array" unless group.instance_of?(Array)
-    result = Hash.new()
-    group.each do |tr|
-      raise "Group item is not a transaction" unless tr.instance_of?(Transaction)
-      tagname = tr.tag.name || 'untagged'
-      if result.has_key?(tagname)
-        # add to array
-        result[tagname] << tr
-      else
-        # start the array
-        result[tagname] = [tr] 
-      end
-    end
-    result
+    raise "Not an array" unless group.instance_of?(Array)
+    group.group_by(&:currtagid)
   end
 
 

@@ -1,11 +1,9 @@
 <h1>Listing transactions</h1>
 
 <ul>
-<li>Look at speeding up transaction index page
-<li>Consider adding current_tag column to transaction 
 <li>When Destroying a pattern, or removing a pattern when it no longer matches, still some issues reassigning lower patterns
 <li>Move navigation and javascripts into helpers
-<li>Convert group by tags to use group_by functionality
+<li>Convert transaction/index view to use partial and treat untagged as special case
 <li>Add more to graphs
 <li>Allow viewing graphs by date range, tags
 <li>If no negative points, originSeries not found
@@ -16,17 +14,17 @@
 </ul>
 
 <%
-@tagnames.each do |tagname| 
-  if @grouped_transactions.has_key?(tagname)
+@tags.each do |tag| 
+  if @grouped_transactions.has_key?(tag.id)
     # get the transactions for this tag
-    transactions = @grouped_transactions[tagname]
+    transactions = @grouped_transactions[tag.id]
   else
     # no transactions assigned, go to next tag
     next
   end
 %>
 
-<h2><%=tagname.capitalize%></h2>
+<h2><%=tag.name.capitalize%></h2>
 
 <table class="transactions">
   <tr>

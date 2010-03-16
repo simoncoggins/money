@@ -2,10 +2,15 @@ class TransactionsController < ApplicationController
 
   def index
     # get an ordered list of tags
-    @tagnames = Tag.find(:all, :order => 'name').map{ |t| t.name }
-    # append the 'untagged' tag
-    @tagnames << 'untagged'
-    # get all transactions in a hash, by tag
+    @tags = Tag.find(:all, :order => 'name')
+    # add a dummy tag to the array so untagged transactions will
+    # also be shown
+    # bit of a hack as this throws a warning - might be better to
+    # split transaction/index view into a partial and treat untagged
+    # as a special case
+    @tags << Tag.new(:name => 'untagged', :id=>nil)
+    # get all transactions in an array, by tag
+    # untagged transactions have a key of nil
     @grouped_transactions = Transaction.group_by_tags
   end
 

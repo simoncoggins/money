@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100313000256
+# Schema version: 20100316050953
 #
 # Table name: transactions
 #
@@ -10,6 +10,7 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #  statement_id :integer
+#  currtagid    :integer
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
