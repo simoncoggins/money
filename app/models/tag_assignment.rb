@@ -20,6 +20,7 @@ class TagAssignment < ActiveRecord::Base
   validates_numericality_of :tag_id, :transaction_id, :source, :only_integer => true, :message => "can only be whole number."
 
   after_destroy :update_patterns
+  after_save :update_current_tag
 
   # still not right - here newly assigned patterns will overrule any
   # existing ones, temporarily changed to only update if no other patterns
@@ -37,6 +38,15 @@ class TagAssignment < ActiveRecord::Base
       # only apply patterns if there are no others already set
       transaction.apply_patterns(Pattern.all) if existing_patterns.count == 0
     end
+
+    # destroying an assignment may change current tag
+    self.update_current_tag
+  end
+
+  # wrapper to call Transaction.update_current_tag
+  # for the transaction assigned by this tag assignment
+  def update_current_tag
+    self.transaction.update_current_tag
   end
 
 end

@@ -23,30 +23,14 @@ class Transaction < ActiveRecord::Base
   validates_numericality_of :amount
   validates_numericality_of :statement_id, :only_integer => true
 
-  attr_accessible :date, :amount, :text, :statement_id
+  attr_accessible :date, :amount, :text, :statement_id, :currtagid
   after_create :apply_patterns
-
-  # could be done more efficiently with
-  # extra field in transaction updated by
-  # after_save method in tag_assignment
-  def tag
-    if self.tag_assignments.empty?
-      # no tags, provide an empty tag so transaction.tag.name works
-      Tag.new
-    else
-      self.tag_assignments.first.tag
-    end
-  end
-
-  # needed by collection_select to pick default
-  def tag_id
-    self.tag.id
-  end
 
   # Input array of transactions as argument. If none provided, matches 
   # against all transactions
   # Returns hash containing tagnames as keys and array of transactions
   # with that tag assigned as values
+  # TODO replace with proper group_by
   def self.group_by_tags(group=Transaction.all)
     raise "Group is not an array" unless group.instance_of?(Array)
     result = Hash.new()
@@ -90,7 +74,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def debit?
-    !self.credit?
+    self.amount < 0
   end
 
   # given an array of transactions, return the sum of all the amounts
@@ -120,7 +104,7 @@ class Transaction < ActiveRecord::Base
       # don't add an assignment if tag hasn't changed
       # this is a bit naive to assignments other than user
       # and could be handled better 
-      self.tag.id == tagid
+      self.currtagid == tagid
     true
   end
 
@@ -197,26 +181,25 @@ class Transaction < ActiveRecord::Base
     data
   end
 
-  # TODO this doesn't work because date objects can't accept fractions -
-  # need to merge this into get_all_flot_data function to pass split dates
-  # to js without changing original values
-  # might want to sort by date then id to ensure they are listed in the 
-  # order they were imported
-  def self.separate_daily_transactions(transactions=Transaction.all)
-    grouped = transactions.group_by(&:date).each do |date, trs|
-      group_count = trs.count
-      day_fraction = 1.0 / (group_count + 1)
-      
-      trs.each_with_index do |tr,i|
-        tr.update_attribute('date', tr.date + day_fraction*(i+1) )
-      end
-    end
-  end
-
-
   def pretty_text
     # capitalize first letter of each word, and compress multiple spaces
     self.text.split.map{|w| w.capitalize}.join ' '
+  end
+
+  def update_current_tag
+    currtagid = (self.tag_assignments.empty?) ? 
+      nil : self.tag_assignments.first.tag.id
+    self.update_attribute(:currtagid, currtagid)
+  end
+
+  def tag
+    if self.currtagid.nil?
+      # return an empty tag so code like tr.tag.name will work
+      # even if transaction is untagged
+      Tag.new
+    else
+      Tag.find(self.currtagid) 
+    end
   end
 
 end

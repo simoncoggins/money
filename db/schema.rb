@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100313000256) do
+ActiveRecord::Schema.define(:version => 20100316050953) do
 
   create_table "patterns", :force => true do |t|
     t.string   "pattern"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20100313000256) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "statement_id"
+    t.integer  "currtagid"
   end
 
   create_table "uploads", :force => true do |t|

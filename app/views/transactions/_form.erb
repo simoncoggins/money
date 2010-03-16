@@ -13,4 +13,4 @@
   <%= hidden_field :transaction, :statement_id %>
 
   <p><label>Tag:<br />
-  <%= collection_select :transaction, :tag_id, Tag.all, :id, :name, {:prompt => true} %>
+  <%= collection_select :transaction, :currtagid, Tag.all, :id, :name, {:prompt => true} %>
