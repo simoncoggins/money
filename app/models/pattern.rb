@@ -9,6 +9,8 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+
+
 class Pattern < ActiveRecord::Base
   belongs_to :tag
 
