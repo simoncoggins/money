@@ -1,7 +1,8 @@
 class UploadController < ApplicationController
   def index
-    render :file => 'app/views/upload/uploadfile.html.erb'
+
   end
+
   def uploadFile
     post = Upload.import( params[:upload] )
     render :text => "<pre>File uploaded:\n#{post}</pre>"
