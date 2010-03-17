@@ -11,6 +11,10 @@ $(function () {
     // might want to make third element object containing all transaction
     // data
     var data = <%= @data.inspect %>;
+    for (var i = 0; i < data.length; ++i) {
+      data[i][0] += 60 * 60 * 13000;
+    }
+
     showDateRange(data[0][0],data[data.length-1][0]);
 
     var options = {
@@ -25,13 +29,13 @@ $(function () {
         crosshair: { mode: "x" },
         selection: { mode: "x" },
         grid: { hoverable: true, clickable: true, autoHighlight: false },
+        lines: { steps: true },
     }; 
 
     var d = {
         data: data,
         color: "rgb(30, 180, 20)",
         threshold: { below: 0.0, color: "rgb(200, 20, 30)" },
-        lines: { steps: true },
       }
 
     var plot = $.plot($("#placeholder"), [ d ], options);
@@ -158,6 +162,4 @@ function showDateRange(from, to) {
 <li>If no negative points, originSeries not found
 <li>Handling multiple transactions on same day in graph
 <li>Add one more point to graph at RHS with same amount and date+1day (so last transaction hoverable)
-<li>Check points actually line up to dates
-
 </ul>
