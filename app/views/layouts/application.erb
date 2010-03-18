@@ -1,16 +1,11 @@
 <html>
 <head>
   <title>My application</title>
-<%= stylesheet_link_tag 'screen', :media => 'screen' %>
-<% #= stylesheet_link_tag 'print', :media => 'print' %>
+<%= stylesheet_tags %>
 </head>
 <body>
 <p>
-<%= link_to "Transactions", :controller=> 'transactions' %> |
-<%= link_to "Tags", :controller => 'tags' %> | 
-<%= link_to "Patterns", :controller => 'patterns' %> |  
-<%= link_to "Upload Statement", :controller => 'upload' %> |
-<%= link_to "Graphs", :controller => 'view' %>
+<%= nav_links %>
 </p>
 <p style="color: green"><%= flash[:notice] %></p>
 <%= yield %>
