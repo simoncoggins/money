@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :tags
 
+map.data 'data/bytag/:period.json', :controller => 'data', :action => 'bytag'
+
   # The priority is based upon order of creation: first created -> highest priority.
 map.transactions     'transactions',          :controller => 'transactions'
 map.new_transaction  'transactions/new',      :controller => 'transactions', :action => 'new'
@@ -16,6 +18,7 @@ map.destroy_pattern 'pattern/destroy/:id', :controller => 'patterns', :action =>
 map.pattern      'patterns/show/:id', :controller => 'patterns', :action => 'show'
 
 map.view 'view', :controller => 'view'
+map.other_view 'view/other', :controller => 'view', :action => 'other'
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

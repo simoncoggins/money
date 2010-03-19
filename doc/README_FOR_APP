@@ -37,3 +37,26 @@ tag.transactions
 tag.transactions.find(:first).statement
 => returns statement
 
+
+
+#################
+
+data = [ [ [t1, p1], [t2, p2], .. ], [ [t1, p1], [t2, p2], .. ], ... ]
+                ^ tag #1                    ^ tag #2
+
+trans = [ [ [tr1, tr2], [tr3, tr4], ..], [ [tr5, tr6], [tr7, tr8], .. ], ... ]
+              ^ transactions                             ^ transactions
+          belonging to t1 and tag1                belonging to t7 and tag2
+
+tags = [ #tag1, #tag2, ... ]
+          ^ tag objects, one per first level array element
+
+
+find.group_by =>
+by_tag = [ [ tag1, [tr1, tr2, tr3] ], tag2, [tr4, tr5, tr6] ]
+
+data=> series, points, point
+trans=> tag_items, period_items, items
+tags=> tags
+
+

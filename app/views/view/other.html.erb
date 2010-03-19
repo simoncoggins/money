@@ -1,0 +1,68 @@
+<h2>Account Balance</h2>
+<div id="placeholder"></div>
+<script id="source" language="javascript" type="text/javascript"> 
+// why is from no longer working?
+// why won't stacking work? May need an x point for each day?
+// why does stack include break other plot?
+  $.getJSON("http://localhost:3000/data/bytag/daily.json", //?from=1264071600",
+    function(data, textStatus) {
+      console.log(data);
+      var mydata = data.data;
+      var options = {
+            series: {
+                stack: true,
+                bars: { show: true, barWidth: 1000*24*60*60 },
+            },
+            xaxis: { mode: "time" },
+      };
+      console.log(mydata);
+      var plot = $.plot($("#placeholder"), mydata , options);
+    } 
+  );
+</script>
+
+<!--
+/*
+var plot
+$(function () {
+    var data = [];
+    //for (var i = 0; i < data.length; ++i) {
+    //  data[i][0] += 60 * 60 * 13000;
+    //}
+
+    var options = {
+        xaxis: { mode: "time" },
+        color: "rgb(30, 180, 20)",
+        yaxis: { tickFormatter: function (v, axis) {
+          var num = v.toFixed(axis.tickDecimals);
+          var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num); 
+          return numstr;
+          },
+          labelWidth: 50,
+        },
+    //    crosshair: { mode: "x" },
+    //    selection: { mode: "x" },
+    //    grid: { hoverable: true, clickable: true, autoHighlight: false },
+        lines: { steps: true },
+    }; 
+
+    //var plot = $.plot($("#placeholder"), [ data ], options);
+
+
+              // using jquery parseJSON would be better, but need to use
+              // newer version of JSON for it to work
+              //var details = jQuery.parseJSON(dataset[1].originSeries.data[j][2]);
+
+});
+*/
+        // then fetch the data with jQuery
+        function onDataReceived(series) {
+console.log('bye'); 
+console.log(series); 
+            // let's add it to our current data
+            //data.push(series.data[0]);
+            
+            // and plot all we got
+            //$.plot(placeholder, data, options);
+         }
+-->

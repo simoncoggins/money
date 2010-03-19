@@ -5,4 +5,8 @@ class ViewController < ApplicationController
     @from = params[:from]
   end
 
+  def other
+    
+  end
+
 end

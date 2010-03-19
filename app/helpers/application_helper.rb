@@ -23,7 +23,8 @@ module ApplicationHelper
     javascript_include_tag('jquery.flot.min') +
     javascript_include_tag('jquery.flot.threshold.min') + 
     javascript_include_tag('jquery.flot.crosshair.min') +
-    javascript_include_tag('jquery.flot.selection.min')
+    javascript_include_tag('jquery.flot.selection.min') +
+    javascript_include_tag('jquery.flot.stack.min') 
   end
 
   def nav_links
