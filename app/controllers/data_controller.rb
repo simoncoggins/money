@@ -30,23 +30,38 @@ class DataController < ApplicationController
     tags = Array.new
     series = Array.new
     tag_items = Array.new
+
+    # get a list of all unique transaction dates
+    all_periods = by_tag.values.flatten.map{|tr| tr.date.beginning_of_week}.uniq
+
     by_tag.each do |tagid,trs|
+      # split each tags data by date period
+      by_period = trs.group_by {|tr| tr.date.beginning_of_week }
+
       points = Array.new
       period_items = Array.new
 
-      by_period = trs.group_by {|tr| tr.date.beginning_of_day }
-      by_period.each do |period, trs|
-        items = Array.new
-	sum = 0
-        trs.each do |tr|
-          sum += tr.amount.abs
-          items << tr
-        end
-        time = period.to_time.to_i*1000
-        points << [time, sum]
-        period_items << trs
-      end
+      # go through all the possible time periods
+      all_periods.each do |thisperiod|
 
+        time = thisperiod.to_time.to_i*1000
+        items = Array.new
+        sum = 0
+        # does this grouping have transactions for this time period?
+        if by_period.has_key?(thisperiod)
+          by_period[thisperiod].each do |tr|
+            # add amounts and store transaction info
+            sum += tr.amount.abs
+            items << tr
+          end
+        end
+        # build the series
+        points << [time, sum]
+        period_items << items
+
+      end 
+
+      # build the tagged groups
       series << points
       tag_items << period_items
       tags << tagid
