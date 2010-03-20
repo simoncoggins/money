@@ -8,6 +8,10 @@
 <p>
 <%= nav_links %>
 </p>
+<p>
+<%= link_to("Balance", :controller => 'view') + ' | ' +
+    link_to("Transactions", :controller => 'view', :action => 'other') %>
+</p>
 <p style="color: green"><%= flash[:notice] %></p>
 <%= yield %>
 </body>

@@ -1,9 +1,8 @@
-<h2>Account Balance</h2>
+<h2>Transactions</h2>
 <div id="placeholder"></div>
 <script id="source" language="javascript" type="text/javascript"> 
 // why is from no longer working?
 // why won't stacking work? May need an x point for each day?
-// why does stack include break other plot?
   $.getJSON("http://localhost:3000/data/bytag/daily.json", //?from=1264071600",
     function(data, textStatus) {
       console.log(data);
