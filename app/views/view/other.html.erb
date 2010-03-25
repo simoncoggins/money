@@ -1,23 +1,92 @@
 <h2>Transactions</h2>
 <div id="placeholder"></div>
-<script id="source" language="javascript" type="text/javascript"> 
-// why is from no longer working?
-// why won't stacking work? May need an x point for each day?
-  $.getJSON("http://localhost:3000/data/bytag/daily.json", //?from=1264071600",
+<br />
+<div id="sidebar"></div>
+
+<ol>
+<li>Try to load initial data without ajax</li>
+<li>Daily/weekly buttons call another function which:</li>
+<li>Add colours to tag model and show bars+legends in right colour</li>
+<li>Add buttons to group by daily/week/month</li>
+<li>Add onHover to show list of transactions represented by bar</li>
+</ol>
+
+<script id="source" language="javascript" type="text/javascript">
+var params = <%= @dateRange.to_json %>;
+var source = 'http://localhost:3000/data/bytag/daily.json';
+var options = {
+  legend: { noColumns : 2},
+  series: {
+    stack: true,
+    bars: { show: true, 
+      barWidth: 7*1000*24*60*60,
+      lineWidth: 1,
+    },
+  },
+  xaxis: { mode: "time" },
+};
+var data = [];
+var choiceContainer = $('#sidebar');
+
+doFetch();
+
+function doFetch() {
+  $.getJSON(source, params, function(newdata) {
+    doPlot(newdata);
+    doShowCheckboxes(newdata);
+    console.log(newdata);
+  });
+}
+
+function doPlot(data) {
+  $.plot($("#placeholder"), data.data, options);
+}
+
+
+function doUpdatePlot(newdata) {
+  var plotdata = [];
+  var plottags = [];
+  var plotitems = [];
+  var i = 0, tagid;
+  var tags = newdata.tags;
+  for (i in tags) {
+    tagid = tags[i].tag.id;
+    if($('#id'+tagid+':checked').val()=='on') {
+      plotdata.push(newdata.data[i]);
+      plottags.push(newdata.tags[i]);
+      plotitems.push(newdata.items[i]);
+    }
+  }
+  var res = {data: plotdata, items: plotitems, tags: plottags};
+  doPlot(res);
+
+}
+
+function doShowCheckboxes(newdata) {
+  var i,checkboxes = '';
+  var tags = newdata.tags;
+  for (i in tags) {
+    checkboxes += '<input type="checkbox" name="'+tags[i].tag.id + 
+      '" checked="checked" id="id' + tags[i].tag.id + '"><label for="id' + 
+      tags[i].tag.id + '">' + tags[i].tag.name + '</label>';
+  }
+  choiceContainer.html(checkboxes);
+
+  choiceContainer.find("input").click(function() {doUpdatePlot(newdata);});
+}
+
+/*
+  $.getJSON(source,
+    params,
     function(data, textStatus) {
       console.log(data);
       var mydata = data.data;
-      var options = {
-            series: {
-                stack: true,
-                bars: { show: true, barWidth: 7*1000*24*60*60 },
-            },
-            xaxis: { mode: "time" },
-      };
-      console.log(mydata);
       var plot = $.plot($("#placeholder"), mydata , options);
     } 
   );
+*/
+
+
 </script>
 
 <!--

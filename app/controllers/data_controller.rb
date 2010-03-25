@@ -1,32 +1,19 @@
 class DataController < ApplicationController
 
-  def bytag
-    @from = params[:from]
-    @to = params[:to]
-    @result = 'Data By Tag'
-    @period = params[:period]
-    
-    # find better way to do this
-    if !@from.nil? and !@to.nil?
-       by_tag = Transaction.find(:all, :conditions => ["amount < 0 AND date > ? AND date < ?", Time.at(@from.to_i), Time.at(@to.to_i)]).group_by(&:currtagid)
-    elsif !@from.nil?
-       by_tag = Transaction.find(:all, :conditions => ["amount < 0 ANDdate > ?", Time.at(@from.to_i)]).group_by(&:currtagid)
-    elsif !@to.nil?
-       by_tag = Transaction.find(:all, :conditions => ["amount < 0 AND date < ?", Time.at(@to.to_i)]).group_by(&:currtagid)
-    else
-       by_tag = Transaction.find(:all, :conditions => ["amount < 0"]).group_by(&:currtagid)
-    end
-
-
 # group by tags then a date period (days, weeks, etc)
 # need to:
 # - offset by 1/2 time period
-# - pass width for bars
-# - get stacking working
+# - pass color/width for bars
 # - automate period based on url
 # - pass tag info
 # - consider using balance offset trick to show each transaction
 #   as separate bar
+
+  def bytag
+    @period = params[:period]
+    
+    by_tag = Transaction.get_by_dates(:from => params[:from], :to => params[:to]).group_by(&:currtagid)
+
     tags = Array.new
     series = Array.new
     tag_items = Array.new
@@ -34,7 +21,15 @@ class DataController < ApplicationController
     # get a list of all unique transaction dates
     all_periods = by_tag.values.flatten.map{|tr| tr.date.beginning_of_week}.uniq
 
+    # get current tags, including untagged
+    all_tags = Tag.all
+    all_tags << Tag.new(:name => 'untagged')
+
     by_tag.each do |tagid,trs|
+      # get the tag object for this grouping
+      # must be an easier/more efficient way
+      this_tag = all_tags.select{|t| t.id == tagid }[0]
+
       # split each tags data by date period
       by_period = trs.group_by {|tr| tr.date.beginning_of_week }
 
@@ -61,12 +56,22 @@ class DataController < ApplicationController
 
       end 
 
+      datainfo = Hash.new
+      datainfo['data'] = points
+      datainfo['label'] = this_tag.name.capitalize
+
       # build the tagged groups
-      series << points
+      series << datainfo
       tag_items << period_items
-      tags << tagid
+      tags << this_tag
     end
 
+
+    @data = {'data' => series,
+             'tags' => tags,
+             'items' => tag_items}.to_json
+
+  end
 
 # OTHER INFO:
 # tasks are grouped by those with same return value from block
@@ -78,11 +83,6 @@ class DataController < ApplicationController
 #day_fraction = 1.0 / (group_count + 1)
 #day_fraction =#  time = tr.date.to_time.to_i*1000 #+ day_fraction*(i+1)*60*60*24*1000
 #day_fraction = 
-    @data = {'data' => series,
-             'tags' => tags,
-             'items' => tag_items}.to_json
-
-  end
 
 
 end

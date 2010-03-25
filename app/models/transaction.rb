@@ -190,5 +190,28 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  # add way to pass in array of transactions to use instead of all
+  # NOTE: This currently only shows negative transactions (debits)
+  def self.get_by_dates(options={})
+    options = { :to => nil, :from => nil}.merge(options)
+    if !options[:from].nil? and !options[:to].nil?
+       # both to and from set
+       self.find(:all, :conditions => ["amount < 0 AND date > ? AND date < ?", 
+         Time.at(options[:from].to_i), Time.at(options[:to].to_i)])
+    elsif !options[:from].nil?
+       # only from set
+       self.find(:all, :conditions => ["amount < 0 AND date > ?", 
+         Time.at(options[:from].to_i)])
+    elsif !options[:to].nil?
+       # only to set
+       self.find(:all, :conditions => ["amount < 0 AND date < ?", 
+         Time.at(options[:to].to_i)])
+    else
+       # neither set - show all
+       self.find(:all, :conditions => ["amount < 0"])
+    end
+   
+  end
+
 end
 
