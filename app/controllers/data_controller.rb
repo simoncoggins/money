@@ -59,6 +59,7 @@ class DataController < ApplicationController
       datainfo = Hash.new
       datainfo['data'] = points
       datainfo['label'] = this_tag.name.capitalize
+      #datainfo['color'] = '#FF0000';
 
       # build the tagged groups
       series << datainfo
