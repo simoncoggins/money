@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316050953
+# Schema version: 20100325080503
 #
 # Table name: tags
 #
@@ -7,6 +7,7 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  color      :string(255)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

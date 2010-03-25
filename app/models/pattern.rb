@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100316050953
+# Schema version: 20100325080503
 #
 # Table name: patterns
 #
