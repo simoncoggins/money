@@ -1,21 +1,36 @@
 <h2>Transactions</h2>
+<div id="controls">
+<input type="button" value="Daily" />
+<input type="button" value="Weekly" />
+<input type="button" value="Monthly" />
+</div>
+<br />
 <div id="placeholder"></div>
 <br />
-<div id="sidebar"></div>
-
-<ol>
+<div class="sidebar">
+<div id="taglist"></div>
+<div id="items"></div>
+</div>
+<ul>
 <li>Try to load initial data without ajax</li>
-<li>Daily/weekly buttons call another function which:</li>
-<li>Add colours to tag model and show bars+legends in right colour</li>
-<li>Add buttons to group by daily/week/month</li>
-<li>Add onHover to show list of transactions represented by bar</li>
-</ol>
+<li>Black bar border? Or hack flot to not show empty values</li>
+<li>Fix monthly bar width</li>
+<li>Show axis even for empty graph</li>
+<li>Add calendar/slider to limit date range</li>
+<li>Don't alter checkbox state when switching time period</li>
+<li>Consider starting with only some tags checked</li>
+<li>Think about tag list order</li>
+<li>Dollars on y axis</li>
+<li>seriesIndex wrong when only some tags are checked</li>
+<li>Show taglist whenever mouse outside graph</li>
+<li>Something wrong with the daily plot (intermittent)</li>
+</ul>
 
 <script id="source" language="javascript" type="text/javascript">
 var params = <%= @dateRange.to_json %>;
-var source = 'http://localhost:3000/data/bytag/daily.json';
+var source = 'http://localhost:3000/data/bytag/weekly.json';
+var period = 'Weekly';
 var options = {
-  legend: { noColumns : 2},
   series: {
     stack: true,
     bars: { show: true, 
@@ -24,9 +39,10 @@ var options = {
     },
   },
   xaxis: { mode: "time" },
+  grid: { hoverable: true, autoHighlight: true },
 };
 var data = [];
-var choiceContainer = $('#sidebar');
+var choiceContainer = $('#taglist');
 
 doFetch();
 
@@ -34,12 +50,22 @@ function doFetch() {
   $.getJSON(source, params, function(newdata) {
     doPlot(newdata);
     doShowCheckboxes(newdata);
-    console.log(newdata);
   });
 }
 
 function doPlot(data) {
   $.plot($("#placeholder"), data.data, options);
+console.log(data);
+  $("#placeholder").bind("plothover", function (event, pos, item) {
+    if(item !== null) {
+      console.log(data,item);
+      showItems(data.items[item.seriesIndex][item.dataIndex],data.tags[item.seriesIndex].tag.name);
+    } else {
+      $('#taglist').css('display','block');
+      $('#items').css('display','none');
+    }
+    
+  });
 }
 
 
@@ -57,80 +83,118 @@ function doUpdatePlot(newdata) {
       plotitems.push(newdata.items[i]);
     }
   }
-  var res = {data: plotdata, items: plotitems, tags: plottags};
-  doPlot(res);
-
+  if(plotdata.length == 0) {
+    $('#placeholder').html('<div style="text-align: center; position: relative; top: 50%; height: 100px; margin-top: -50px;">Select one or more tags<br />from the list on the right =></div>');
+  } else {
+    var res = {data: plotdata, items: plotitems, tags: plottags};
+    doPlot(res);
+  }
 }
 
 function doShowCheckboxes(newdata) {
-  var i,checkboxes = '';
+  var i,name,color,id,checkboxes = '';
   var tags = newdata.tags;
+  checkboxes += '<a href="#" id="cb-control-on">all</a>/';
+  checkboxes += '<a href="#" id="cb-control-off">none</a><br />';
+  checkboxes += '<table>';
   for (i in tags) {
-    checkboxes += '<input type="checkbox" name="'+tags[i].tag.id + 
-      '" checked="checked" id="id' + tags[i].tag.id + '"><label for="id' + 
-      tags[i].tag.id + '">' + tags[i].tag.name + '</label>';
+    id = tags[i].tag.id;
+    name = tags[i].tag.name;
+    color = tags[i].tag.color;
+    checkboxes += '<tr><td>';
+    checkboxes += '<input type="checkbox" name="' + id + 
+      '" checked="checked" id="id' + id + '">';
+    checkboxes += '</td>';
+    checkboxes += '<td><div style="width: 25px; border: 1px solid ' + color +
+      ';"><div style="background-color: ' + color +
+      ';" class="transp">&nbsp;</div></div></td>';
+    checkboxes += '<td><label for="id' + id + '">' + name + '</label>';
+    checkboxes += '</td><td>';
+    checkboxes += getOverallAverage(newdata, i);
+    checkboxes += '</td></tr>';
   }
+  checkboxes += '</table>';
   choiceContainer.html(checkboxes);
-
   choiceContainer.find("input").click(function() {doUpdatePlot(newdata);});
+  choiceContainer.find("#cb-control-off").click(function() {
+    choiceContainer.find("input").removeAttr('checked');
+    doUpdatePlot(newdata);
+    return false;
+  });
+  choiceContainer.find("#cb-control-on").click(function() {
+    choiceContainer.find("input").attr('checked','checked');
+    doUpdatePlot(newdata);
+    return false;
+  });
+  $('.transp').css('opacity',0.5);
 }
 
-/*
-  $.getJSON(source,
-    params,
-    function(data, textStatus) {
-      console.log(data);
-      var mydata = data.data;
-      var plot = $.plot($("#placeholder"), mydata , options);
-    } 
-  );
-*/
+$('#controls input').click(function() {
+  source = 'http://localhost:3000/data/bytag/'+$(this).val()+'.json';
+  
+  period = $(this).val();
+  switch ($(this).val()) {
+    case 'Daily':
+      options.series.bars.barWidth = 1*1000*24*60*60;
+      break;
+    case 'Weekly':
+      options.series.bars.barWidth = 7*1000*24*60*60;
+      break;
+    case 'Monthly':
+      options.series.bars.barWidth = 31*1000*24*60*60;
+      break;
+    default:
+      options.series.bars.barWidth = 1*1000*24*60*60;
+  }
 
+  doFetch();
+});
 
+function getOverallAverage(bytag, tagid) {
+  var i,total=0;
+  var data = bytag.data[tagid].data;
+  var first = data[0][0];
+  var last = data[data.length - 1][0];
+  var timeperiod = last - first;
+  for (i in data) {
+    total += data[i][1];
+  }
+  var res = (Math.floor(100 * total / data.length)/100.0).toFixed(2);
+  switch (period) {
+  case 'Daily':
+    return '$' + res + '/day';
+  case 'Weekly':
+    return '$' + res + '/week';
+  case 'Monthly':
+    return '$' + res + '/month';
+  default:
+    return '$' + res  + '/transaction';
+  }
+}
+
+function showItems(items, tagname) {
+  $('#items').css('display','block');
+  $('#taglist').css('display','none');
+  var i,d,amountclass,tr,htmlstr='';
+  var num = items.length;
+  var numstr = (num != 1) ? 'items' : 'item';
+  htmlstr += '<table class="transactions">';
+  htmlstr += '<tr>';
+  htmlstr += '<th colspan="3">'+num+' '+numstr+' tagged with '+tagname+'</th>';
+  htmlstr += '</tr>';
+  for (i in items) {
+    tr = items[i];
+    d = new Date(tr.trdate);
+    amountclass = (tr.amount > 0) ? 'credit' : 'debit';
+    htmlstr += '<tr>';
+    htmlstr += '<td>'+d.toLocaleDateString()+'</td>';
+    htmlstr += '<td class="'+amountclass+'">'+tr.amount+'</td>';
+    htmlstr += '<td>'+tr.text+'</td>';
+    htmlstr += '</tr>';
+  }
+  htmlstr += '</table>';
+  $('#items').html(htmlstr);
+}
 </script>
 
-<!--
-/*
-var plot
-$(function () {
-    var data = [];
-    //for (var i = 0; i < data.length; ++i) {
-    //  data[i][0] += 60 * 60 * 13000;
-    //}
 
-    var options = {
-        xaxis: { mode: "time" },
-        color: "rgb(30, 180, 20)",
-        yaxis: { tickFormatter: function (v, axis) {
-          var num = v.toFixed(axis.tickDecimals);
-          var numstr = (num >=0) ? "$"+num : "-$"+Math.abs(num); 
-          return numstr;
-          },
-          labelWidth: 50,
-        },
-    //    crosshair: { mode: "x" },
-    //    selection: { mode: "x" },
-    //    grid: { hoverable: true, clickable: true, autoHighlight: false },
-        lines: { steps: true },
-    }; 
-
-    //var plot = $.plot($("#placeholder"), [ data ], options);
-
-
-              // using jquery parseJSON would be better, but need to use
-              // newer version of JSON for it to work
-              //var details = jQuery.parseJSON(dataset[1].originSeries.data[j][2]);
-
-});
-*/
-        // then fetch the data with jQuery
-        function onDataReceived(series) {
-console.log('bye'); 
-console.log(series); 
-            // let's add it to our current data
-            //data.push(series.data[0]);
-            
-            // and plot all we got
-            //$.plot(placeholder, data, options);
-         }
--->

@@ -6,11 +6,13 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Color</th>
   </tr>
 
 <% @tags.each do |tag| %>
   <tr>
-    <td><%=h tag.name %></td>
+    <td><%= tag.name %></td>
+    <td><%= tag.color %></td>
     <td><%= link_to 'Show', tag %></td>
     <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
     <td><%= link_to 'Destroy', tag, :confirm => 'Are you sure?', :method => :delete %></td>

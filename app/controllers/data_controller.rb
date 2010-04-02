@@ -2,15 +2,12 @@ class DataController < ApplicationController
 
 # group by tags then a date period (days, weeks, etc)
 # need to:
-# - offset by 1/2 time period
-# - pass color/width for bars
-# - automate period based on url
-# - pass tag info
+# - pass width for bars?
 # - consider using balance offset trick to show each transaction
 #   as separate bar
 
   def bytag
-    @period = params[:period]
+    @period = params[:period].downcase
     
     by_tag = Transaction.get_by_dates(:from => params[:from], :to => params[:to]).group_by(&:currtagid)
 
@@ -19,11 +16,11 @@ class DataController < ApplicationController
     tag_items = Array.new
 
     # get a list of all unique transaction dates
-    all_periods = by_tag.values.flatten.map{|tr| tr.date.beginning_of_week}.uniq
+    all_periods = by_tag.values.flatten.map{|tr| tr.date_by_period(@period)}.uniq 
 
     # get current tags, including untagged
     all_tags = Tag.all
-    all_tags << Tag.new(:name => 'untagged')
+    all_tags << Tag.new(:name => 'untagged', :color => '#999999')
 
     by_tag.each do |tagid,trs|
       # get the tag object for this grouping
@@ -31,7 +28,7 @@ class DataController < ApplicationController
       this_tag = all_tags.select{|t| t.id == tagid }[0]
 
       # split each tags data by date period
-      by_period = trs.group_by {|tr| tr.date.beginning_of_week }
+      by_period = trs.group_by {|tr| tr.date_by_period(@period) }
 
       points = Array.new
       period_items = Array.new
@@ -47,19 +44,26 @@ class DataController < ApplicationController
           by_period[thisperiod].each do |tr|
             # add amounts and store transaction info
             sum += tr.amount.abs
-            items << tr
+            obj = {'id' => tr.id,
+             'trdate' => tr.date, # avoid using JS reserved date
+             'text' => tr.pretty_text,
+             'amount' => tr.currency_amount,
+             'statement_id' => tr.statement_id,
+             'created_at' => tr.created_at,
+             'updated_at' => tr.updated_at
+            }
+            items << obj
           end
         end
         # build the series
         points << [time, sum]
-        period_items << items
+        period_items << items.sort{|x,y| x['trdate'] <=> y['trdate']}
 
       end 
 
       datainfo = Hash.new
       datainfo['data'] = points
-      datainfo['label'] = this_tag.name.capitalize
-      #datainfo['color'] = '#FF0000';
+      datainfo['color'] = this_tag.color
 
       # build the tagged groups
       series << datainfo

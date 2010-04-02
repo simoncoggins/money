@@ -3,7 +3,9 @@
 <p>Drag a region to zoom in, click to zoom out</p>
 <p><%= @from %></p>
 <div id="placeholder"></div>
+<div class="sidebar">
 <div id="transaction"><table class="transactions"><tr><td>initial message</td></tr></table></div>
+</div>
 <div id="overview" style="width:166px;height:100px;position:absolute;left: 600px; top:50px;"></div>
 <script id="source" language="javascript" type="text/javascript"> 
 var plot
@@ -159,9 +161,8 @@ function showDateRange(from, to) {
 
 <ul>
 
-<li>Add more to graphs
 <li>Allow viewing graphs by date range, tags
 <li>If no negative points, originSeries not found
-<li>Handling multiple transactions on same day in graph
 <li>Add one more point to graph at RHS with same amount and date+1day (so last transaction hoverable)
+<li>Get rid of times from x axis</li>
 </ul>

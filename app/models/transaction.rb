@@ -80,10 +80,10 @@ class Transaction < ActiveRecord::Base
     # define this elsewhere
     currencymark = '$'
     if self.credit?
-      currencymark + self.amount.to_s
+      sprintf("%s%0.2f",currencymark,self.amount)
     else
-      # remove first character (minus sign) and add before dollar
-      '-' + currencymark + self.amount.to_s[1..-1]
+      # put minus sign before dollar
+      sprintf("-%s%0.2f", currencymark, self.amount.abs)
     end
   end
 
@@ -211,6 +211,19 @@ class Transaction < ActiveRecord::Base
        self.find(:all, :conditions => ["amount < 0"])
     end
    
+  end
+
+  def date_by_period(period)
+    case period
+      when 'daily'
+        self.date.beginning_of_day
+      when 'weekly'
+        self.date.beginning_of_week
+      when 'monthly'
+        self.date.beginning_of_month
+      else
+        self.date
+    end
   end
 
 end
