@@ -28,7 +28,7 @@
 
 <script id="source" language="javascript" type="text/javascript">
 var params = <%= @dateRange.to_json %>;
-var source = 'http://localhost:3000/data/bytag/weekly.json';
+var source = '/data/bytag/weekly.json';
 var period = 'Weekly';
 var options = {
   series: {
@@ -58,7 +58,21 @@ function doPlot(data) {
 console.log(data);
   $("#placeholder").bind("plothover", function (event, pos, item) {
     if(item !== null) {
-      console.log(data,item);
+      //var count = 0; //item.seriesIndex + 1;
+      //var newIndex;
+      console.log(item.seriesIndex+'/'+data.items.length+'|'+data.tags.length);
+      /*
+      $('#taglist input:checkbox').each(function(i,el){
+        if($('#'+el.id+':checked').val()=='on') {
+          count++;
+        }
+        if(count - 1 == item.seriesIndex) {
+          newIndex = i; //console.log('@'+i);
+        }
+      });
+      console.log(data.tags);
+      console.log(data.items[item.seriesIndex]);
+      */
       showItems(data.items[item.seriesIndex][item.dataIndex],data.tags[item.seriesIndex].tag.name);
     } else {
       $('#taglist').css('display','block');
@@ -130,7 +144,7 @@ function doShowCheckboxes(newdata) {
 }
 
 $('#controls input').click(function() {
-  source = 'http://localhost:3000/data/bytag/'+$(this).val()+'.json';
+  source = '/data/bytag/'+$(this).val()+'.json';
   
   period = $(this).val();
   switch ($(this).val()) {

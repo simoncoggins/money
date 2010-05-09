@@ -1,0 +1,74 @@
+<h2>Split a transaction</h2>
+
+<%= error_messages_for :transaction %>
+
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Original item</th>
+    <th>New item</th>
+  </tr>
+  <% form_tag :action => 'dosplit', :id => params[:id] do %>
+  <tr>
+    <td>
+    <b>Date:</b>
+    </td>
+    <td>
+    <%= @transaction.date %>
+    </td>
+    <td>
+    <%= @transaction.date %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <b>Amount:
+    </td>
+    <td>
+    $<%= text_field_tag 'transaction[amount]', @halfup, :size => 30,
+    :onchange => "document.getElementById('newtransaction_amount').value = split_amount(this.value);" %></label></p>
+    </td>
+    <td>
+    $<%= text_field_tag 'newtransaction[amount]', @halfdown, :size => 30,
+    :onchange => "document.getElementById('transaction_amount').value = split_amount(this.value);" %></label></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <b>Text:
+    </td>
+    <td>
+    <%= text_field :transaction, :text %></label></p>
+    </td>
+    <td>
+	    <%= text_field_tag 'newtransaction[text]', @transaction.text, :size => 30 %></label></p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <b>Tag:
+    </td>
+    <td>
+    <%= collection_select :transaction, :currtagid, Tag.all, :id, :name, {:prompt => true} %></label></p>
+    </td>
+    <td>
+    <%= collection_select :newtransaction, :tag_id, Tag.all, :id, :name, {:prompt => true} %></label></p>
+    </td>
+  </tr>
+</table>
+
+<%= hidden_field :transaction, :statement_id %>
+<%= hidden_field_tag 'newtransaction[statement_id]', @transaction.statement_id %>
+<%= hidden_field_tag 'newtransaction[date]', @transaction.date %>
+
+  <p><%= submit_tag 'Split this transaction' %></p>
+<% end %>
+
+<%= link_to 'Back', transactions_path %>
+
+<script type="text/javascript">
+function split_amount(field) {
+  var total = <%= @transaction.amount.to_s %>;
+  return (Math.ceil((total - field) * 100)/100).toFixed(2);
+}
+</script>

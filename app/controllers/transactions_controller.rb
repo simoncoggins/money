@@ -58,4 +58,34 @@ class TransactionsController < ApplicationController
     flash[:notice] = 'Transaction was deleted'
     redirect_to transactions_url
   end
+
+  def split
+    @transaction = Transaction.find(params[:id])
+    halfamount = @transaction.amount / 2
+    @halfup = (halfamount*100).ceil/100.0
+    @halfdown = (halfamount*100).floor/100.0
+  end
+
+  def dosplit
+    @transaction = Transaction.find(params[:id])
+    tagid = params[:transaction].delete('tag_id')
+
+    @newtransaction = Transaction.new(params[:newtransaction])
+    newtagid = params[:newtransaction].delete('tag_id')
+    params[:newtransaction][:currtagid] = newtagid
+    if @transaction.update_attributes(params[:transaction]) and
+      @transaction.assign_tag(tagid, 1) and
+      @newtransaction.save and 
+      @newtransaction.assign_tag(newtagid, 1)
+      flash[:notice] = 'Transaction split'
+      redirect_to :action => 'index'
+    else
+      flash[:error] = 'Could not split transaction'
+      render :action => 'index'
+    end
+
+ 
+
+
+  end
 end
