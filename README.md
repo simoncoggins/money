@@ -27,7 +27,7 @@ Features
 Screenshots
 -----------
 
-![List of transactions](/transactions-list.jpg)
-![Graph of transactions](/transactions-graph.jpg)
-![Graph of account balance](/balance-graph.jpg)
+![List of transactions](https://raw.github.com/simoncoggins/money/master/transaction-list.jpg)
+![Graph of transactions](https://raw.github.com/simoncoggins/money/master/transaction-graph.jpg)
+![Graph of account balance](https://raw.github.com/simoncoggins/money/master/balance-graph.jpg)
 
