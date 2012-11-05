@@ -1,0 +1,29 @@
+Transactions:
+* When destroying a pattern, or removing a pattern when it no longer matches, still some issues reassigning lower patterns
+* Convert transaction/index view to use partial and treat untagged as special case
+* How to update current tag when using after_destroy in tag_assignments model?
+* Update graph model functions to properly send output to json using formats
+* Better validation for split transactions option
+* Allow transactions to be hidden (from graphs and shaded on list)
+
+Transaction graph:
+* Try to load initial data without ajax
+* Black bar border? Or hack flot to not show empty values
+* Fix monthly bar width
+* Show axis even for empty graph
+* Add calendar/slider to limit date range
+* Don't alter checkbox state when switching time period
+* Consider starting with only some tags checked
+* Think about tag list order
+* Dollars on y axis
+* seriesIndex wrong when only some tags are checked
+* Show taglist whenever mouse outside graph
+* Something wrong with the daily plot (intermittent)
+
+Balance graph:
+* Allow viewing graphs by date range, tags
+* If no negative points, originSeries not found
+* Add one more point to graph at RHS with same amount and date+1day (so last transaction hoverable)
+* Get rid of times from x axis
+
+
